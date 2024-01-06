@@ -1,4 +1,5 @@
 import os
+
 import torch
 from PIL import Image
 from torchvision import transforms
@@ -14,14 +15,18 @@ it2en = {"cane": "dog",
          "ragno": "spider",
          "scoiattolo": "squirrel"}
 
+
 if __name__ == '__main__':
     # list of images as tensors and labels
     data, labels = [ ], [ ]
     for animal in it2en.keys():
+        
+        
         input_folder = f'data/raw/{animal}/'
         
         print(f"processing '{it2en[animal]}'")
         count = 0
+        image_tensors = []
         num_imgs = len(os.listdir(input_folder))
     
         # Loop through all files in the input folder
@@ -32,17 +37,17 @@ if __name__ == '__main__':
                 input_image_path = os.path.join(input_folder, file_name)
                 
                 # open image and convert to grayscale
-                img = Image.open(input_image_path).convert('L')
+                img = Image.open(input_image_path).convert("RGB")
                 
-                IMAGE_SIZE = 64
+                IMAGE_SIZE = 224
                 # Define the transformation
                 transform = transforms.Compose([
                     transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
-                    transforms.ToTensor()
+                    transforms.ToTensor(),
                 ])
 
                 # resize image and add to list of images
-                img_resized = transform(img)
+                img_resized = transform(img).unsqueeze(0)
                 data.append(img_resized)
 
                 # get target label and add to list of labels
@@ -51,8 +56,12 @@ if __name__ == '__main__':
                 
                 print(f"{count}/{num_imgs}", end='\r')
                 count += 1
+            
+            if count >= 10: # TODO: remove (only for dev purposes)
+                break
+
     
-    data = torch.cat(data, dim=0)
+    data = torch.cat(data)
     labels = torch.tensor(labels)
 
     print(data.shape)

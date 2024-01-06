@@ -15,7 +15,6 @@ it2en = {"cane": "dog",
          "scoiattolo": "squirrel"}
 
 if __name__ == '__main__':
-
     # list of images as tensors and labels
     data, labels = [ ], [ ]
     for animal in it2en.keys():
@@ -24,18 +23,13 @@ if __name__ == '__main__':
         print(f"processing '{it2en[animal]}'")
         count = 0
         num_imgs = len(os.listdir(input_folder))
-        
-        # Create output folder if it doesn't exist
-        if not os.path.exists(output_folder):
-            os.makedirs(output_folder)
     
         # Loop through all files in the input folder
         for file_name in os.listdir(input_folder):
             # Check if the file is an image (you can customize the extensions as needed)
             if file_name.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
-                # Construct the full path of the input and output images
+                # Construct the full path of the input image
                 input_image_path = os.path.join(input_folder, file_name)
-                output_image_path = os.path.join(output_folder, file_name)
                 
                 # open image and convert to grayscale
                 img = Image.open(input_image_path).convert('L')

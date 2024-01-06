@@ -1,2 +1,2 @@
-from Project.models.model import MyNeuralNet
-from Project.predict_model import predict
+from animals10.predict_model import Predictor
+from animals10.train_model import Trainer

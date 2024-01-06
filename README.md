@@ -34,7 +34,7 @@ How we will include the framework in the project:
 - [x] (Hroi) Make sure that all team members have write access to the github repository
 - [ ] Create a dedicated environment for you project to keep track of your packages
 - [x] (Hroi) Create the initial file structure using cookiecutter
-- [ ] (Hroi) Write Project description
+- [x] (Hroi) Write Project description
 - [ ] (Jakob) Fill out the make_dataset.py file such that it downloads whatever data you need and
 - [ ] (Jakob) Add a model file and a training script and get that running
 - [ ] Remember to fill out the requirements.txt file with whatever dependencies that you are using
@@ -48,6 +48,7 @@ How we will include the framework in the project:
 - [ ] When you have something that works somewhat, remember at some point to to some profiling and see if you can optimize your code
 - [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally, consider running a hyperparameter optimization sweep.
 - [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
+- [ ] (Hroi) Connect preprocessing and model with drive
 
 ### Week 2
 - [ ] Write unit tests related to the data part of your code

@@ -1,26 +1,33 @@
 # Animals-10
 
-### Description (First Draft)
+## Description
 
-**Goals:**
+### Goals:
 
 The goal of this project is to create an Image Classification model that can classify animals. The end result should be a production ready environment containing a trained image classification model. We will use the material provided in the course.
 
-**Data:**
-
+### Data:
 We will use the dataset provided [here](https://www.kaggle.com/datasets/alessiocorrado99/animals10). This open dataset contains 26k images of animals seperated into 10 classes. 
 dog, cat, horse, spyder, butterfly, chicken, sheep, cow, squirrel, elephant.
 
-**Framework:**
+### Model:
+The model will consist of a convolutional neural network (CNN) defined by a model described below. During develeopment as well as post development the logs from the model will be saved.
 
-We will use the framework: (to-be-decided).
+### Framework:
+For this project we will concider one of the following deep convolutional neural network architecture:
+
+* EfficientNet V2
+* MobileNet V3
+* GoogLeNet
+
+We will also concider tools from the  the TIMM framework for Computer Vision (PyTorch Image Models) for this project. TIMM is a collection of tools that can be used for an image model. 
 
 How we will include the framework in the project:
 * The Images will be preprocessed to be compatible with the given framework
 * The framework is used to build a model
 * We will train the selected model on the prepared dataset, optimizing hyperparameters for optimal performance.
 
-**Workflow:**
+
 
 
 

@@ -22,7 +22,7 @@ if __name__ == '__main__':
     for animal in it2en.keys():
         
         
-        input_folder = f'data/raw/{animal}/'
+        input_folder = f'data/raw/archive/raw-img/{animal}/'
         
         print(f"processing '{it2en[animal]}'")
         count = 0

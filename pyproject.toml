@@ -3,7 +3,7 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "MLOps"
+name = "animals10"
 version = "0.0.1"
 description = "\u003cENTER DESCRIPTION\u003e"
 authors = [
@@ -15,7 +15,7 @@ requires-python = ">=3.11"
 dynamic = ["dependencies", "optional-dependencies"]
 
 [tool.setuptools]
-packages = ["MLOps"]
+packages = ["animals10"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}

@@ -3,6 +3,8 @@ import os
 import torch
 from PIL import Image
 from torchvision import transforms
+from animals10.models.GoogLeNet import GoogLeNet
+from animals10.models.Preprocessing import Preprocessing
 
 it2en = {
     "cane": "dog",
@@ -45,11 +47,12 @@ if __name__ == "__main__":
                     [
                         transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
                         transforms.ToTensor(),
+                        transforms.Normalize(0.5, 0.5)
                     ]
                 )
 
                 # resize image and add to list of images
-                img_resized = transform(img).unsqueeze(0)
+                img_resized = Preprocessing.preprocess_images(img, IMAGE_SIZE)
                 data.append(img_resized)
 
                 # get target label and add to list of labels

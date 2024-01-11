@@ -4,6 +4,10 @@ import torch
 from PIL import Image
 from torchvision import transforms
 
+from ..models.GoogLeNet import GoogLeNet
+
+# Italian to English dictionary
+
 it2en = {
     "cane": "dog",
     "cavallo": "horse",
@@ -19,6 +23,7 @@ it2en = {
 
 
 if __name__ == "__main__":
+    pass
     # list of images as tensors and labels
     data, labels = [], []
     for animal in it2en.keys():

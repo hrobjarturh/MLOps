@@ -1,1 +1,1 @@
-from animals10.models.GoogLeNet import GoogLeNet
+from models.GoogLeNet import GoogLeNet

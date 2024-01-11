@@ -7,29 +7,34 @@
 The goal of this project is to create an Image Classification model that can classify animals. The end result should be a production ready environment containing a trained image classification model. We will use the material provided in the course.
 
 ### Data:
-We will use the dataset provided [here](https://www.kaggle.com/datasets/alessiocorrado99/animals10). This open dataset contains 26k images of animals seperated into 10 classes. 
+
+We will use the dataset provided [here](https://www.kaggle.com/datasets/alessiocorrado99/animals10). This open dataset contains 26k images of animals seperated into 10 classes.
 dog, cat, horse, spyder, butterfly, chicken, sheep, cow, squirrel, elephant.
 
 ### Model:
+
 The model will consist of a convolutional neural network (CNN) defined by a model described below. During develeopment as well as post development the logs from the model will be saved.
 
 ### Framework:
+
 For this project we will concider one of the following deep convolutional neural network architecture:
 
-* EfficientNet V2
-* MobileNet V3
-* GoogLeNet
+- EfficientNet V2
+- MobileNet V3
+- GoogLeNet
 
-We will also concider tools from the  the TIMM framework for Computer Vision (PyTorch Image Models) for this project. TIMM is a collection of tools that can be used for an image model. 
+We will also concider tools from the the TIMM framework for Computer Vision (PyTorch Image Models) for this project. TIMM is a collection of tools that can be used for an image model.
 
 How we will include the framework in the project:
-* The Images will be preprocessed to be compatible with the given framework
-* The framework is used to build a model
-* We will train the selected model on the prepared dataset, optimizing hyperparameters for optimal performance.
+
+- The Images will be preprocessed to be compatible with the given framework
+- The framework is used to build a model
+- We will train the selected model on the prepared dataset, optimizing hyperparameters for optimal performance.
 
 # Checklist
 
 ### Week 1
+
 - [x] (Hroi) Create a git repository
 - [x] (Hroi) Make sure that all team members have write access to the github repository
 - [ ] Create a dedicated environment for you project to keep track of your packages
@@ -37,20 +42,21 @@ How we will include the framework in the project:
 - [x] (Hroi) Write Project description
 - [ ] (Jakob) Fill out the make_dataset.py file such that it downloads whatever data you need and
 - [ ] (Jakob) Add a model file and a training script and get that running
-- [ ] Remember to fill out the requirements.txt file with whatever dependencies that you are using
-- [ ] Remember to comply with good coding practices (pep8) while doing the project
+- [x] Remember to fill out the requirements.txt file with whatever dependencies that you are using
+- [x] Remember to comply with good coding practices (pep8) while doing the project
 - [ ] Do a bit of code typing and remember to document essential parts of your code
-- [ ] (Magnus) Setup version control for your data or part of your data
-- [ ] (Nael) Construct one or multiple docker files for your code
-- [ ] (Nael) Build the docker files locally and make sure they work as intended
-- [ ] Write one or multiple configurations files for your experiments
-- [ ] (Nael) Used Hydra to load the configurations and manage your hyperparameters
+- [x] (Magnus) Setup version control for your data or part of your data
+- [x] (Nael) Construct one or multiple docker files for your code
+- [x] (Nael) Build the docker files locally and make sure they work as intended
+- [x] Write one or multiple configurations files for your experiments
+- [x] (Nael) Used Hydra to load the configurations and manage your hyperparameters
 - [ ] When you have something that works somewhat, remember at some point to to some profiling and see if you can optimize your code
 - [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally, consider running a hyperparameter optimization sweep.
 - [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 - [ ] (Hroi) Connect preprocessing and model with drive
 
 ### Week 2
+
 - [ ] Write unit tests related to the data part of your code
 - [ ] Write unit tests related to model construction and or model training
 - [ ] Calculate the coverage.
@@ -63,6 +69,7 @@ How we will include the framework in the project:
 - [ ] Deploy your model in GCP using either Functions or Run as the backend
 
 ### Week 3
+
 - [ ] Check how robust your model is towards data drifting
 - [ ] Setup monitoring for the system telemetry of your deployed model
 - [ ] Setup monitoring for the performance of your deployed model
@@ -71,6 +78,7 @@ How we will include the framework in the project:
 - [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed
 
 ### Additional
+
 - [ ] Revisit your initial project description. Did the project turn out as you wanted?
 - [ ] Make sure all group members have a understanding about all parts of the project
 - [ ] Uploaded all your code to github

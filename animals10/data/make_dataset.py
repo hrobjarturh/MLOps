@@ -1,5 +1,4 @@
 import os
-
 import torch
 from PIL import Image
 from torchvision import transforms
@@ -19,12 +18,11 @@ it2en = {
     "scoiattolo": "squirrel",
 }
 
-
 if __name__ == "__main__":
     # list of images as tensors and labels
     data, labels = [], []
     for animal in it2en.keys():
-        input_folder = f"data/raw/archive/raw-img/{animal}/"
+        input_folder = f"../../data/raw/archive/raw-img/{animal}/"
 
         print(f"processing '{it2en[animal]}'")
         count = 0
@@ -42,14 +40,6 @@ if __name__ == "__main__":
                 img = Image.open(input_image_path).convert("RGB")
 
                 IMAGE_SIZE = 224
-                # Define the transformation
-                transform = transforms.Compose(
-                    [
-                        transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
-                        transforms.ToTensor(),
-                        transforms.Normalize(0.5, 0.5)
-                    ]
-                )
 
                 # resize image and add to list of images
                 img_resized = Preprocessing.preprocess_images(img, IMAGE_SIZE)
@@ -71,4 +61,4 @@ if __name__ == "__main__":
     print(data.shape)
     print(labels.shape)
 
-    torch.save(torch.utils.data.TensorDataset(data, labels), "data/processed/dataset.pt")
+    torch.save(torch.utils.data.TensorDataset(data, labels), "../../data/processed/processed_dataset.pt")

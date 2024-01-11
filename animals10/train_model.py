@@ -6,9 +6,9 @@ import torch.nn as nn
 import torch.optim as optim
 from hydra.utils import instantiate
 from omegaconf import DictConfig, OmegaConf
-from torch.utils.data import DataLoader
+from torch.utils.data import ConcatDataset, DataLoader
 
-from models.GoogLeNet import GoogLeNet
+from animals10.models.GoogLeNet import GoogLeNet
 
 # TODO: Add logger
 
@@ -21,18 +21,41 @@ class Trainer:
         self.optimizer = optimizer
         self.hyperparams = hyperparams
 
-    def load(self, filepath="/data/processed/dataset.pt", local=True):
-        if local:
-            try:
-                dataset = torch.load(filepath)
-            except FileNotFoundError:
-                print(f"Error: File '{filepath}' not found.")
-                exit()
+    def load(self, batch_amount = 3, folder_path="data/processed/train"):
+        # List to store individual datasets
+        datasets = []
 
-            self.data_loader = DataLoader(dataset, self.hyperparams.batch_size, shuffle=True)
+        batch_counter = 0
+        # Loop through the files in the folder
+        for filename in os.listdir(folder_path):
+            batch_counter += 1
+
+            file_path = os.path.join(folder_path, filename)
+
+            # Check if the file is a torch DataLoader object
+            if filename.endswith('.pt'):
+                # Load the DataLoader object from the file
+                dataset = torch.load(file_path)
+
+                # Append the dataset to the list
+                datasets.append(dataset)
+
+            if batch_counter >= batch_amount:
+                break
+
+        # Check if any DataLoader objects were loaded
+        if not datasets:
+            print("No DataLoader objects found in the folder.")
         else:
-            # TODO: Load data with dvs
-            self.data_loader = None
+            # Concatenate the datasets into a single dataset
+            concatenated_dataset = ConcatDataset(datasets)
+
+            # Create a DataLoader for the concatenated dataset
+            concatenated_dataloader = DataLoader(
+                concatenated_dataset, self.hyperparams.batch_size, shuffle=True
+            )
+        
+        self.data_loader = concatenated_dataloader
 
     def train(self):
         for epoch in range(self.hyperparams.epochs):
@@ -82,7 +105,7 @@ if __name__ == "__main__":
     print('Opening config files ...')
     with open("config/config.yaml", "r") as f:
         cfg = OmegaConf.load(f)
-        hyperparams = instantiate(cfg.hyperparams)
+        hyperparams = instantiate(cfg.hyperparams_train)
 
 
     print('Training ...')
@@ -97,14 +120,8 @@ if __name__ == "__main__":
     trainer = Trainer(model, device, criterion, optimizer, hyperparams)
 
 
-    trainer.load(filepath="data/processed/dataset.pt",)
+    trainer.load(folder_path="data/processed/train/",)
     trainer.train()
     
-    files = os.listdir('models')
-    if "googlenet_model_0.pth" not in files:
-        newest_versions = 0
-    else:
-        versions = [int(file.split("_")[2].split(".")[0]) for file in files if file.startswith('googlenet_model_')]
-        newest_versions = max(versions) + 1
 
     trainer.save_model(decide_filename())

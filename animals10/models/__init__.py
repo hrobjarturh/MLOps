@@ -1,1 +1,1 @@
-from models.GoogLeNet import GoogLeNet
+from .GoogLeNet import *

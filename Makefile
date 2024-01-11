@@ -121,3 +121,7 @@ serve:
 train:
 	python animals10/train_model.py
 
+# make dataset
+dataset:
+	python animals10/data/make_dataset.py 
+

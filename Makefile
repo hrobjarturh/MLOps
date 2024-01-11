@@ -110,3 +110,14 @@ help:
 		printf "\n"; \
 	}' \
 	| more $(shell test $(shell uname) = Darwin && echo '--no-init --raw-control-chars')
+
+
+# Host Model
+
+serve:
+	uvicorn --reload --port 8000 animals10.serve:app
+
+# Train
+train:
+	python animals10/train_model.py
+

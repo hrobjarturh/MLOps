@@ -1,7 +1,7 @@
 import torch
 from torchvision import transforms
 
-from animals10.models import GoogLeNet
+from models.GoogLeNet import GoogLeNet
 
 
 class Predictor:

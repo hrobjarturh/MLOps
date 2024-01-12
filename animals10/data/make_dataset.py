@@ -103,7 +103,26 @@ def save_batches(set_type, inputs, targets):
 
         torch.save(torch.utils.data.TensorDataset(data, labels), F"data/processed/{set_type}/{set_type}_{batch_counter}.pt")
 
+def check_folders():
+    print('Checking foler structure ...')
+
+    # Check if the "data/processed/" folder exists
+    if not os.path.exists("data/processed/"):
+        os.makedirs("data/processed/")
+
+    # Check if the "test", "train" and "val" folders exist
+    if not os.path.exists("data/processed/test"):
+        os.makedirs("data/processed/test")
+    if not os.path.exists("data/processed/train"):
+        os.makedirs("data/processed/train")
+    if not os.path.exists("data/processed/val"):
+        os.makedirs("data/processed/val")
+
+    print('Folder structure checked!')
+
 if __name__ == "__main__":
+
+    check_folders()
 
     # get all images and their class
     image_names, category_names = collect_file_info("data/raw/archive/raw-img/")

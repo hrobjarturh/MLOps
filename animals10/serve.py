@@ -1,87 +1,28 @@
-from typing import Annotated
-
-import torch
-from fastapi import FastAPI, File, Request, UploadFile
-from PIL import Image
+from fastapi import FastAPI
 from pydantic import BaseModel
-from torchvision import transforms
 
+from animals10 import Predictor
 from animals10.data.Preprocessing import Preprocessing
-from animals10.models import GoogLeNet
-
-MODELPATH = "models/googlenet_model.pth"
-
-# create a pydantic base class that has an UploadFile object and an int called top_amount
-class ImageRequest(BaseModel):
-    file: UploadFile = File(...)
-    top_amount: int = 1
-
-# create a FastAPI app
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return "Live"
+predictor = Predictor("models/googlenet_model_5.pth")
+
+
+class Data(BaseModel):
+    image_path: str | list[str]
+
+@app.post("/predict")
+async def predict(data : Data):
+    if isinstance(data.image_path, str):
+        data.image_path = [data.image_path]
+
+    results = predictor.predict(data.image_path)
+
+    return {"result": results}
 
 @app.get("/ping")
-def read_root():
+def ping():
     return "Pong"
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int):
-    return {"item_id": item_id}
-
-
-def load_image(image_path):
-    image = Image.open(image_path).convert("RGB")
-    return image
-
-# Create a function that preprocesses the image)
-def preprocess_data(input_image):
-    # TODO: Use preproccess module
-    preprocess = transforms.Compose(
-        [
-            transforms.Resize([224, 224]),
-            transforms.ToTensor(),
-        ]
-    )
-    input_tensor = preprocess(input_image)
-    input_batch = input_tensor.unsqueeze(0)  # create a mini-batch as expected by the model
-    return input_batch
-
-# Create a function that loads the model and makes a prediction
-def load_model():
-    model = GoogLeNet().model
-    model.load_state_dict(torch.load(MODELPATH))  
-    return model
-
-# Create a FastAPI endpoint that takes an image path as input and returns a prediction
-@app.post("/predict")
-async def predict_file(image_path:str):
-    print(f'predicting .. {image_path}')
-
-    model = load_model()
-    image = load_image(image_path)
-    
-    input_batch = Preprocessing().preprocess_data(image)
-
-    with torch.no_grad():
-        output = model(input_batch)
-
-    probabilities = torch.nn.functional.softmax(output[0], dim=0)
-    probabilities, labels = torch.topk(probabilities, imageRequest.top_amount)
-
-    return {"Ouput": int(labels)}
-
-class Properties(BaseModel):
-    language: str = None
-    author: str = None
-
-@app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile = File(), properties: Properties = None):
-    return {"filename": file.filename}
-
-
 
 

@@ -8,7 +8,8 @@ from hydra.utils import instantiate
 from omegaconf import DictConfig, OmegaConf
 from torch.utils.data import ConcatDataset, DataLoader
 
-from animals10.models.GoogLeNet import GoogLeNet
+from Loader import Loader
+from models.GoogLeNet import GoogLeNet
 
 # TODO: Add logger
 
@@ -20,48 +21,15 @@ class Trainer:
         self.criterion = criterion
         self.optimizer = optimizer
         self.hyperparams = hyperparams
-
-    def load(self, batch_amount = 3, folder_path="data/processed/train"):
-        # List to store individual datasets
-        datasets = []
-
-        batch_counter = 0
-        # Loop through the files in the folder
-        for filename in os.listdir(folder_path):
-            batch_counter += 1
-
-            file_path = os.path.join(folder_path, filename)
-
-            # Check if the file is a torch DataLoader object
-            if filename.endswith('.pt'):
-                # Load the DataLoader object from the file
-                dataset = torch.load(file_path)
-
-                # Append the dataset to the list
-                datasets.append(dataset)
-
-            if batch_counter >= batch_amount:
-                break
-
-        # Check if any DataLoader objects were loaded
-        if not datasets:
-            print("No DataLoader objects found in the folder.")
-        else:
-            # Concatenate the datasets into a single dataset
-            concatenated_dataset = ConcatDataset(datasets)
-
-            # Create a DataLoader for the concatenated dataset
-            concatenated_dataloader = DataLoader(
-                concatenated_dataset, self.hyperparams.batch_size, shuffle=True
-            )
-        
-        self.data_loader = concatenated_dataloader
+        self.train_loader = Loader().load(hyperparams, batch_amount = 3, folder_path="data/processed/train")
+        self.val_loader = Loader().load(hyperparams, batch_amount = 3, folder_path="data/processed/val")
 
     def train(self):
+        print('\n Starting training process ...')
         for epoch in range(self.hyperparams.epochs):
             self.model.train()
 
-            for inputs, labels in self.data_loader:
+            for inputs, labels in self.train_loader:
                 self.optimizer.zero_grad()
                 outputs = self.model(inputs)
                 loss = self.criterion(outputs.logits, labels)
@@ -70,13 +38,15 @@ class Trainer:
 
             print(f"Epoch [{epoch+1}/{self.hyperparams.epochs}], Loss: {loss.item():.4f}")  # TODO: logger
 
-    def validate(self, val_loader):  # TODO: Create validation set
+            self.validate()
+
+    def validate(self):  # TODO: Create validation set
         self.model.eval()
         total_correct = 0
         total_samples = 0
 
         with torch.no_grad():
-            for inputs, labels in val_loader:
+            for inputs, labels in self.val_loader:
                 inputs, labels = inputs.to(self.device), labels.to(self.device)
                 outputs = self.model(inputs)
                 _, predicted = torch.max(outputs, 1)
@@ -117,10 +87,10 @@ if __name__ == "__main__":
 
     optimizer = optim.Adam(model.parameters(), lr=hyperparams.learning_rate)
 
+    #train_loader = Loader().load('train', hyperparams.batch_size)
+    #val_loader = Loader().load('val', hyperparams.batch_size)
+
     trainer = Trainer(model, device, criterion, optimizer, hyperparams)
-
-
-    trainer.load(folder_path="data/processed/train/",)
     trainer.train()
     
 

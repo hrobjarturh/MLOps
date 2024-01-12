@@ -1,11 +1,12 @@
 from typing import Annotated
 
 import torch
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, Request, UploadFile
 from PIL import Image
 from pydantic import BaseModel
 from torchvision import transforms
 
+from animals10.data.Preprocessing import Preprocessing
 from animals10.models import GoogLeNet
 
 MODELPATH = "models/googlenet_model.pth"
@@ -33,7 +34,7 @@ def read_item(item_id: int):
 
 
 def load_image(image_path):
-    image = Image.open(image_path)
+    image = Image.open(image_path).convert("RGB")
     return image
 
 # Create a function that preprocesses the image)
@@ -57,11 +58,13 @@ def load_model():
 
 # Create a FastAPI endpoint that takes an image path as input and returns a prediction
 @app.post("/predict")
-async def predict_file(imageRequest:ImageRequest):
-    print(f'predicting .. {imageRequest.file.filename}')
+async def predict_file(image_path:str):
+    print(f'predicting .. {image_path}')
+
     model = load_model()
-    image = load_image(imageRequest.file.filename)
-    input_batch = preprocess_data(image)
+    image = load_image(image_path)
+    
+    input_batch = Preprocessing().preprocess_data(image)
 
     with torch.no_grad():
         output = model(input_batch)
@@ -70,6 +73,14 @@ async def predict_file(imageRequest:ImageRequest):
     probabilities, labels = torch.topk(probabilities, imageRequest.top_amount)
 
     return {"Ouput": int(labels)}
+
+class Properties(BaseModel):
+    language: str = None
+    author: str = None
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile = File(), properties: Properties = None):
+    return {"filename": file.filename}
 
 
 

@@ -24,7 +24,7 @@ if __name__ == "__main__":
     for animal in it2en.keys():
         input_folder = f"../../data/raw/archive/raw-img/{animal}/"
 
-        print(f"processing '{it2en[animal]}'")
+        print(f"Processing '{it2en[animal]}...'")
         count = 0
         image_tensors = []
         num_imgs = len(os.listdir(input_folder))

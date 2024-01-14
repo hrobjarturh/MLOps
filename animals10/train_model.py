@@ -19,7 +19,7 @@ class Trainer:
         self.criterion = criterion
         self.optimizer = optimizer
         self.hyperparams = hyperparams
-        self.train_loader = Loader().load(hyperparams, batch_amount = 50, folder_path="data/processed/train")
+        self.train_loader = Loader().load(hyperparams, batch_amount = 92, folder_path="data/processed/train")
         self.val_loader = Loader().load(hyperparams, batch_amount = 20, folder_path="data/processed/val")
 
     def train(self):

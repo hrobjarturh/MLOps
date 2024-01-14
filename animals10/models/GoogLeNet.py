@@ -12,7 +12,8 @@ from torchvision import datasets, models
 def my_app(cfg: DictConfig) -> None:
     print(OmegaConf.to_yaml(cfg))
 
-class GoogLeNet():
+
+class GoogLeNet:
     def __init__(self):
         self.model = models.googlenet(weights=None, init_weights=True, num_classes=10)
 
@@ -20,6 +21,7 @@ class GoogLeNet():
 if __name__ == "__main__":
     my_app()
 
-class GoogLeNet():
+
+class GoogLeNet:
     def __init__(self):
         self.model = models.googlenet(weights=None, init_weights=True, num_classes=10)

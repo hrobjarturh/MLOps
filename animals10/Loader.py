@@ -1,4 +1,3 @@
-
 import os
 
 import torch
@@ -10,7 +9,7 @@ class Loader:
     def __init__(self):
         self.data_loader = None
 
-    def load(self, hyperparams, batch_amount = 3, folder_path="data/processed/train"):
+    def load(self, hyperparams, batch_amount=3, folder_path="data/processed/train"):
         # List to store individual datasets
         datasets = []
         batch_counter = 0
@@ -22,14 +21,14 @@ class Loader:
             file_path = os.path.join(folder_path, filename)
 
             # Check if the file is a torch DataLoader object
-            if filename.endswith('.pt'):
+            if filename.endswith(".pt"):
                 # Load the DataLoader object from the file
                 dataset = torch.load(file_path)
 
                 # Append the dataset to the list
                 datasets.append(dataset)
 
-            if batch_counter >= hyperparams.training_amount and 'train' in folder_path:
+            if batch_counter >= hyperparams.training_amount and "train" in folder_path:
                 break
 
         # Check if any DataLoader objects were loaded
@@ -40,9 +39,7 @@ class Loader:
             concatenated_dataset = ConcatDataset(datasets)
 
             # Create a DataLoader for the concatenated dataset
-            concatenated_dataloader = DataLoader(
-                concatenated_dataset, hyperparams.batch_size, shuffle=True
-            )
-        
-        print(f'Finished loading {folder_path}')
+            concatenated_dataloader = DataLoader(concatenated_dataset, hyperparams.batch_size, shuffle=True)
+
+        print(f"Finished loading {folder_path}")
         return concatenated_dataloader

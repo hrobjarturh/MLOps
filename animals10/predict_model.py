@@ -11,7 +11,7 @@ class Predictor:
     def __init__(self, model_path="models/googlenet_model.pth"):
         self.model = self.load_model(model_path)
 
-    def load_model(self, model_path : str):
+    def load_model(self, model_path: str):
         model = GoogLeNet().model
         model.load_state_dict(torch.load(model_path))
         model.eval()
@@ -26,7 +26,6 @@ class Predictor:
         results = []
 
         for image_path in image_paths:
-
             input_image = Image.open(image_path).convert("RGB")
 
             input_batch = Preprocessing.preprocess_images(input_image, IMAGE_SIZE)

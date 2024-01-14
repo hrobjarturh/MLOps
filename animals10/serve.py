@@ -12,8 +12,9 @@ predictor = Predictor("models/googlenet_model_5.pth")
 class Data(BaseModel):
     image_path: str | list[str]
 
+
 @app.post("/predict")
-async def predict(data : Data):
+async def predict(data: Data):
     if isinstance(data.image_path, str):
         data.image_path = [data.image_path]
 
@@ -21,8 +22,7 @@ async def predict(data : Data):
 
     return {"result": results}
 
+
 @app.get("/ping")
 def ping():
     return "Pong"
-
-

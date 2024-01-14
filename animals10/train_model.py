@@ -1,12 +1,10 @@
 import os
 
-import hydra
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from hydra.utils import instantiate
-from omegaconf import DictConfig, OmegaConf
-from torch.utils.data import ConcatDataset, DataLoader
+from omegaconf import OmegaConf
 
 from Loader import Loader
 from models.GoogLeNet import GoogLeNet
@@ -21,11 +19,11 @@ class Trainer:
         self.criterion = criterion
         self.optimizer = optimizer
         self.hyperparams = hyperparams
-        self.train_loader = Loader().load(hyperparams, batch_amount = 3, folder_path="data/processed/train")
-        self.val_loader = Loader().load(hyperparams, batch_amount = 3, folder_path="data/processed/val")
+        self.train_loader = Loader().load(hyperparams, batch_amount=3, folder_path="data/processed/train")
+        self.val_loader = Loader().load(hyperparams, batch_amount=3, folder_path="data/processed/val")
 
     def train(self):
-        print('\n Starting training process ...')
+        print("\n Starting training process ...")
         for epoch in range(self.hyperparams.epochs):
             self.model.train()
 
@@ -60,25 +58,25 @@ class Trainer:
     def save_model(self, filepath="models/googlenet_model.pth"):
         torch.save(self.model.state_dict(), filepath)
 
+
 def decide_filename():
-    files = os.listdir('models')
+    files = os.listdir("models")
     if "googlenet_model_0.pth" not in files:
         newest_versions = 0
     else:
-        versions = [int(file.split("_")[2].split(".")[0]) for file in files if file.startswith('googlenet_model_')]
+        versions = [int(file.split("_")[2].split(".")[0]) for file in files if file.startswith("googlenet_model_")]
         newest_versions = max(versions) + 1
 
     return f"models/googlenet_model_{newest_versions}.pth"
 
-if __name__ == "__main__":
 
-    print('Opening config files ...')
+if __name__ == "__main__":
+    print("Opening config files ...")
     with open("config/config.yaml", "r") as f:
         cfg = OmegaConf.load(f)
         hyperparams = instantiate(cfg.hyperparams_train)
 
-
-    print('Training ...')
+    print("Training ...")
     model = GoogLeNet().model
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -87,11 +85,10 @@ if __name__ == "__main__":
 
     optimizer = optim.Adam(model.parameters(), lr=hyperparams.learning_rate)
 
-    #train_loader = Loader().load('train', hyperparams.batch_size)
-    #val_loader = Loader().load('val', hyperparams.batch_size)
+    # train_loader = Loader().load('train', hyperparams.batch_size)
+    # val_loader = Loader().load('val', hyperparams.batch_size)
 
     trainer = Trainer(model, device, criterion, optimizer, hyperparams)
     trainer.train()
-    
 
     trainer.save_model(decide_filename())

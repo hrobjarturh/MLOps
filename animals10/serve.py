@@ -6,7 +6,8 @@ from animals10.data.Preprocessing import Preprocessing
 
 app = FastAPI()
 
-predictor = Predictor("models/googlenet_model_5.pth")
+# On macOS, the path to the model is different
+predictor = Predictor("models/googlenet_model_0.pth")
 
 
 class Data(BaseModel):

@@ -1,16 +1,16 @@
 import os
-
+import wandb
+import hydra
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from hydra.utils import instantiate
-from omegaconf import OmegaConf
-
+from omegaconf import DictConfig, OmegaConf
+from torch.utils.data import ConcatDataset, DataLoader
 from Loader import Loader
 from models.GoogLeNet import GoogLeNet
 
 # TODO: Add logger
-
 
 class Trainer:
     def __init__(self, model, device, criterion, optimizer, hyperparams) -> None:
@@ -19,24 +19,35 @@ class Trainer:
         self.criterion = criterion
         self.optimizer = optimizer
         self.hyperparams = hyperparams
-        self.train_loader = Loader().load(hyperparams, batch_amount=3, folder_path="data/processed/train")
-        self.val_loader = Loader().load(hyperparams, batch_amount=3, folder_path="data/processed/val")
+        self.train_loader = Loader().load(hyperparams, batch_amount = 50, folder_path="data/processed/train")
+        self.val_loader = Loader().load(hyperparams, batch_amount = 20, folder_path="data/processed/val")
 
     def train(self):
-        print("\n Starting training process ...")
+        wandb.init(project='MLOps', entity='naelr')
+        training_loss = []
+        validation_accuracies = []
+        print('\n Starting training process ...')
         for epoch in range(self.hyperparams.epochs):
             self.model.train()
-
+            epoch_loss = 0
             for inputs, labels in self.train_loader:
+                inputs, labels = inputs.to(self.device), labels.to(self.device)
                 self.optimizer.zero_grad()
                 outputs = self.model(inputs)
                 loss = self.criterion(outputs.logits, labels)
                 loss.backward()
                 self.optimizer.step()
+                epoch_loss += loss.item()
 
-            print(f"Epoch [{epoch+1}/{self.hyperparams.epochs}], Loss: {loss.item():.4f}")  # TODO: logger
+            avg_training_loss = epoch_loss / len(self.train_loader)
+            training_loss.append(avg_training_loss)
+            validation_accuracy = self.validate()
+            validation_accuracies.append(validation_accuracy)
 
-            self.validate()
+            # Logging to wandb
+            wandb.log({"Epoch": epoch, "Training loss": avg_training_loss})
+            wandb.log({"Epoch": epoch, "Validation accuracy": validation_accuracy})
+            print(f"Epoch [{epoch+1}/{self.hyperparams.epochs}], Loss: {avg_training_loss:.2f}, Validation accuracy: {validation_accuracy:.2f}")
 
     def validate(self):  # TODO: Create validation set
         self.model.eval()
@@ -53,7 +64,7 @@ class Trainer:
                 total_samples += labels.size(0)
 
         accuracy = total_correct / total_samples
-        print(f"Validation Accuracy: {accuracy * 100:.2f}%")
+        return accuracy
 
     def save_model(self, filepath="models/googlenet_model.pth"):
         torch.save(self.model.state_dict(), filepath)
@@ -74,21 +85,14 @@ if __name__ == "__main__":
     print("Opening config files ...")
     with open("config/config.yaml", "r") as f:
         cfg = OmegaConf.load(f)
-        hyperparams = instantiate(cfg.hyperparams_train)
+        hyperparams = instantiate(cfg.hyperparameters_training)
 
-    print("Training ...")
-    model = GoogLeNet().model
+    print('Training ...')
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+    model = GoogLeNet().model.to(device)
     criterion = nn.CrossEntropyLoss()
-
     optimizer = optim.Adam(model.parameters(), lr=hyperparams.learning_rate)
-
-    # train_loader = Loader().load('train', hyperparams.batch_size)
-    # val_loader = Loader().load('val', hyperparams.batch_size)
-
     trainer = Trainer(model, device, criterion, optimizer, hyperparams)
     trainer.train()
-
     trainer.save_model(decide_filename())

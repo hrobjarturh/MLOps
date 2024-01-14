@@ -6,7 +6,7 @@ from animals10.models.GoogLeNet import GoogLeNet
 
 
 class Predictor:
-    def __init__(self, model_path="models/googlenet_model0.pth"):
+    def __init__(self, model_path="models/googlenet_model_0.pth"):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = self.load_model(model_path)
 

@@ -19,8 +19,8 @@ class Trainer:
         self.criterion = criterion
         self.optimizer = optimizer
         self.hyperparams = hyperparams
-        self.train_loader = Loader().load(hyperparams, batch_amount = 92, folder_path="data/processed/train")
-        self.val_loader = Loader().load(hyperparams, batch_amount = 20, folder_path="data/processed/val")
+        self.train_loader = Loader().load(hyperparams, batch_amount = hyperparams.training_batch, folder_path="data/processed/train")
+        self.val_loader = Loader().load(hyperparams, batch_amount = hyperparams.validation_batch, folder_path="data/processed/val")
 
     def train(self):
         wandb.init(project='MLOps', entity='naelr')

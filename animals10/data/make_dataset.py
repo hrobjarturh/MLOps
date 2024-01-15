@@ -28,6 +28,15 @@ DATASET_BATCH_SIZE = 200
 
 
 def collect_file_info(root_folder):
+    """
+    Collects information about image files and their corresponding categories.
+
+    Args:
+        root_folder (str): Root folder containing subfolders with image files.
+
+    Returns:
+        tuple: Two lists containing image file names and their corresponding categories.
+    """
     # Get a list of all image files and categories
     image_names = []
     category_names = []
@@ -53,6 +62,16 @@ def collect_file_info(root_folder):
 
 
 def create_splits(image_names, category_names):
+    """
+    Splits the data into training, validation, and test sets.
+
+    Args:
+        image_names (list): List of image file names.
+        category_names (list): List of corresponding categories.
+
+    Returns:
+        tuple: Six lists containing training and validation sets for input images and target categories.
+    """
     # Split the data into training (70%), validation (15%), and test (15%) sets
     input_train, input_temp, target_train, target_temp = train_test_split(
         image_names, category_names, test_size=0.3, random_state=RANDOM_SEED
@@ -71,6 +90,14 @@ def create_splits(image_names, category_names):
 
 
 def save_batches(set_type, inputs, targets):
+    """
+    Saves batches of preprocessed images and their target labels to disk.
+
+    Args:
+        set_type (str): Type of the data set ('train', 'val', or 'test').
+        inputs (list): List of input images.
+        targets (list): List of target labels.
+    """
     batch_counter = 0
     for input_batch, target_batch in zip(inputs, targets):
         data, labels = [], []
@@ -108,6 +135,10 @@ def save_batches(set_type, inputs, targets):
 
 
 def check_folders():
+    """
+    Checks and creates the necessary folder structure for saving processed data.
+    """
+
     print("Checking foler structure ...")
 
     # Check if the "data/processed/" folder exists

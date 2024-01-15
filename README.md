@@ -17,10 +17,8 @@ The model will consist of a convolutional neural network (CNN) defined by a mode
 
 ### Framework:
 
-For this project we will concider one of the following deep convolutional neural network architecture:
+For this project we will concider the following deep convolutional neural network architecture:
 
-- EfficientNet V2
-- MobileNet V3
 - GoogLeNet
 
 We will also concider tools from the the TIMM framework for Computer Vision (PyTorch Image Models) for this project. TIMM is a collection of tools that can be used for an image model.
@@ -40,8 +38,8 @@ How we will include the framework in the project:
 - [ ] Create a dedicated environment for you project to keep track of your packages
 - [x] (Hroi) Create the initial file structure using cookiecutter
 - [x] (Hroi) Write Project description
-- [ ] (Jakob) Fill out the make_dataset.py file such that it downloads whatever data you need and
-- [ ] (Jakob) Add a model file and a training script and get that running
+- [x] (Jakob) Fill out the make_dataset.py file such that it downloads whatever data you need and
+- [x] (Jakob) Add a model file and a training script and get that running
 - [x] Remember to fill out the requirements.txt file with whatever dependencies that you are using
 - [x] Remember to comply with good coding practices (pep8) while doing the project
 - [ ] Do a bit of code typing and remember to document essential parts of your code
@@ -51,9 +49,9 @@ How we will include the framework in the project:
 - [x] Write one or multiple configurations files for your experiments
 - [x] (Nael) Used Hydra to load the configurations and manage your hyperparameters
 - [ ] When you have something that works somewhat, remember at some point to to some profiling and see if you can optimize your code
-- [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally, consider running a hyperparameter optimization sweep.
+- [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally, consider running a hyperparameter optimization sweep.
 - [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
-- [ ] (Hroi) Connect preprocessing and model with drive
+- [x] Connect preprocessing and model with drive
 
 ### Week 2
 
@@ -64,7 +62,7 @@ How we will include the framework in the project:
 - [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
 - [ ] Create a trigger workflow for automatically building your docker images
 - [ ] Get your model training in GCP using either the Engine or Vertex AI
-- [ ] Create a FastAPI application that can do inference using your model
+- [x] Create a FastAPI application that can do inference using your model
 - [ ] If applicable, consider deploying the model locally using torchserve
 - [ ] Deploy your model in GCP using either Functions or Run as the backend
 

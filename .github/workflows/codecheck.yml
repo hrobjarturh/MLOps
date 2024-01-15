@@ -33,5 +33,3 @@ jobs:
         run: |
           ruff check .
           ruff format .
-
-

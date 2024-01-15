@@ -145,6 +145,5 @@ if __name__ == "__main__":
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=hyperparams.learning_rate)
     trainer = Trainer(model, device, criterion, optimizer, hyperparams)
-    print(len(trainer.train_loader))
-    #trainer.train()
-    #trainer.save_model(decide_filename())
+    trainer.train()
+    trainer.save_model(decide_filename())

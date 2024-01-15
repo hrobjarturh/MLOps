@@ -6,14 +6,15 @@ RUN apt update && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 COPY requirements* /
+COPY config/ config/
 COPY LICENSE LICENSE
 COPY README.md README.md
 COPY pyproject.toml pyproject.toml
-COPY animals10/ MLOps/
+COPY animals10/ animals10/
 COPY data/ data/
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
 
-ENTRYPOINT ["python", "-u", "MLOps/train_model.py"]
+ENTRYPOINT ["python", "-u", "animals10/train_model.py"]

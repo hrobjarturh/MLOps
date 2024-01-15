@@ -1,0 +1,19 @@
+steps:
+  # Step 1: Build the Docker image using mlops.dockerfile
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-f",
+        "dockerfiles/mlops.dockerfile",
+        "-t",
+        "gcr.io/mlops-410812/mlops:latest",
+        ".",
+      ]
+
+  # Step 2: Push the image to Google Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/mlops-410812/mlops:latest"]
+
+images:
+  - "gcr.io/mlops-410812/mlops:latest"

@@ -12,9 +12,8 @@ COPY README.md README.md
 COPY pyproject.toml pyproject.toml
 COPY animals10/ animals10/
 COPY data/ data/
+COPY models/ models/
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
-
-ENTRYPOINT ["python", "-u", "animals10/predict_model.py"]

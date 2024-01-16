@@ -1,6 +1,6 @@
 hyperparameters_training:
-  batch_size: 32
-  epochs: 20
+  batch_size: 16
+  epochs: 10
   learning_rate: 0.001
-  training_batch: 92
-  validation_batch: 20
+  training_batch: 1
+  validation_batch: 3

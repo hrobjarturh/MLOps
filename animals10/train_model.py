@@ -171,10 +171,7 @@ if __name__ == "__main__":
     print("Initializing training with hyperparameters:")
     print(hyperparams)
 
-    device = torch.device(
-        "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
-    )
-    device = torch.device("cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = GoogLeNet().model.to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=hyperparams.learning_rate)

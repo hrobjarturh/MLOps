@@ -9,16 +9,15 @@ class Loader:
     def __init__(self):
         self.data_loader = None
 
-    def load(self, hyperparams, batch_amount, folder_path="data/processed/train"):
+    def load(self, hyperparams, batch_amount, folder_path):
         # List to store individual datasets
         datasets = []
         batch_counter = 0
         # Loop through the files in the folder
-        for filename in os.listdir(folder_path):
-            print(filename)
+        for filename in folder_path:
             batch_counter += 1
 
-            file_path = os.path.join(folder_path, filename)
+            file_path = folder_path + filename
 
             # Check if the file is a torch DataLoader object
             if filename.endswith(".pt"):

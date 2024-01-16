@@ -13,7 +13,7 @@ RUN pip install -r /code/requirements_serve.txt --no-cache-dir
 COPY ./animals10 /code/animals10
 COPY ./models /code/models
 COPY ./models/googlenet_model_0.pth /code/models/googlenet_model_0.pth
-COPY ./data/processed/test /code/data/processed/test
+#COPY ./data/processed/test /code/data/processed/test
 COPY ./config /code/config
 
 # 

@@ -4,20 +4,38 @@ options:
   default_logs_bucket_behavior: 'REGIONAL_USER_OWNED_BUCKET'
 
 steps:
-  # Build the container image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/delta-fact-410808/gcp_test_app:lates', '.'] 
-  # Push the container image to Container Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/delta-fact-410808/gcp_test_app:latest']
-  # Deploy container image to Cloud Run
+  # Step 1: Build the Docker image using mlops.dockerfile
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-f",
+        "dockerfiles/server_model.dockerfile",
+        "-t",
+        "gcr.io/delta-fact-410808/animage:latest",
+        ".",
+      ]
+
+  # Step 2: Push the image to Google Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/delta-fact-410808/animage:latest"]
+
+  # Step 3: cloud run container
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
     - 'run'
     - 'deploy'
-    - 'update-server'
+    - 'animage'
     - '--image'
     - 'gcr.io/delta-fact-410808/gcp_test_app:latest'
+    - '--platform'
+    - 'managed'
     - '--region'
-    - 'europe-north1'
+    - 'europe-west1'
+    - '--memory'
+    - '4Gi'
+    - '--allow-unauthenticated'
+
+images:
+  - "gcr.io/delta-fact-410808/animage:latest"

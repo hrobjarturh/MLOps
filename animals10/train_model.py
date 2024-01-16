@@ -6,10 +6,10 @@ import torch.nn as nn
 import torch.optim as optim
 import wandb
 from hydra.utils import instantiate
+from Loader import Loader
 from omegaconf import DictConfig, OmegaConf
 from torch.utils.data import ConcatDataset, DataLoader
 
-from Loader import Loader
 from models.GoogLeNet import GoogLeNet
 
 # TODO: Add logger

@@ -9,8 +9,8 @@ from hydra.utils import instantiate
 from omegaconf import DictConfig, OmegaConf
 from torch.utils.data import ConcatDataset, DataLoader
 
-from Loader import Loader
-from models.GoogLeNet import GoogLeNet
+from animals10.Loader import Loader
+from animals10.models.GoogLeNet import GoogLeNet
 
 # TODO: Add logger
 
@@ -40,7 +40,7 @@ class Trainer:
             hyperparams, batch_amount=hyperparams.validation_batch, folder_path="data/processed/val"
         )
 
-    def train(self):
+    def train(self, log_to_wandb=True):
         """
         Trains the neural network model.
 
@@ -48,7 +48,8 @@ class Trainer:
         Logs training progress to WandB.
         """
 
-        wandb.init(project="MLOps", entity="naelr")
+        if log_to_wandb:
+            wandb.init(project="MLOps", entity="naelr")
         training_loss = []
         validation_accuracies = []
         print("\n Starting training process ...")
@@ -70,11 +71,13 @@ class Trainer:
             validation_accuracies.append(validation_accuracy)
 
             # Logging to wandb
-            wandb.log({"Epoch": epoch, "Training loss": avg_training_loss})
-            wandb.log({"Epoch": epoch, "Validation accuracy": validation_accuracy})
+            if log_to_wandb:
+                wandb.log({"Epoch": epoch, "Training loss": avg_training_loss})
+                wandb.log({"Epoch": epoch, "Validation accuracy": validation_accuracy})
             print(
                 f"Epoch [{epoch+1}/{self.hyperparams.epochs}], Loss: {avg_training_loss:.2f}, Validation accuracy: {validation_accuracy:.2f}"
             )
+        return training_loss, validation_accuracies
 
     def validate(self):
         """
@@ -111,7 +114,7 @@ class Trainer:
         torch.save(self.model.state_dict(), filepath)
 
 
-def decide_filename():
+def decide_filename(directory="models"):
     """
     Decides the filename for a new version of the GoogleNet model.
 
@@ -122,14 +125,14 @@ def decide_filename():
         str: The filename for the new version of the GoogleNet model.
     """
 
-    files = os.listdir("models")
+    files = os.listdir(directory)
     if "googlenet_model_0.pth" not in files:
         newest_versions = 0
     else:
         versions = [int(file.split("_")[2].split(".")[0]) for file in files if file.startswith("googlenet_model_")]
         newest_versions = max(versions) + 1
 
-    return f"models/googlenet_model_{newest_versions}.pth"
+    return f"{directory}/googlenet_model_{newest_versions}.pth"
 
 
 if __name__ == "__main__":

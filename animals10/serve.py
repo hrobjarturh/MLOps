@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from animals10 import Predictor
-from animals10.data.Preprocessing import Preprocessing
+from animals10.predict_model import Predictor
 
 app = FastAPI()
 
@@ -27,3 +26,7 @@ async def predict(data: Data):
 @app.get("/ping")
 def ping():
     return "Pong"
+
+@app.get("/")
+def welcome():
+    return "Status: Live"

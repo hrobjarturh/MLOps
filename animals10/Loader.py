@@ -27,7 +27,7 @@ class Loader:
                 # Append the dataset to the list
                 datasets.append(dataset)
 
-            if batch_counter >= batch_amount and "train" in folder_path:
+            if batch_counter >= batch_amount and "train/" in folder_path:
                 break
 
         # Check if any DataLoader objects were loaded

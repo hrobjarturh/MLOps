@@ -1,5 +1,3 @@
-import os
-
 import torch
 from torch.utils.data import ConcatDataset, DataLoader
 
@@ -39,6 +37,6 @@ class Loader:
 
             # Create a DataLoader for the concatenated dataset
             concatenated_dataloader = DataLoader(concatenated_dataset, hyperparams.batch_size, shuffle=True)
-
-        print(f"Finished loading {folder_path}")
-        return concatenated_dataloader
+            print(f"Finished loading {folder_path}")
+            return concatenated_dataloader
+        return None

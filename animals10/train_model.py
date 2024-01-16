@@ -34,7 +34,7 @@ class Trainer:
         self.optimizer = optimizer
         self.hyperparams = hyperparams
         self.train_loader = Loader().load(
-            hyperparams, batch_amount=hyperparams.training_batch, folder_path="data/processed/train"
+            hyperparams, batch_amount=hyperparams.training_batch, folder_path="/gcs/data-mlops-animals10/data/processed/train"
         )
         self.val_loader = Loader().load(
             hyperparams, batch_amount=hyperparams.validation_batch, folder_path="data/processed/val"
@@ -100,7 +100,7 @@ class Trainer:
         accuracy = total_correct / total_samples
         return accuracy
 
-    def save_model(self, filepath="models/googlenet_model.pth"):
+    def save_model(self, filepath="/gcs/data-mlops-animals10/data/models/googlenet_model.pth"):
         """
         Saves the trained model's state dictionary to a file.
 
@@ -122,11 +122,11 @@ def decide_filename():
         str: The filename for the new version of the GoogleNet model.
     """
 
-    files = os.listdir("models")
-    if "googlenet_model_0.pth" not in files:
+    path = "/gcs/data-mlops-animals10/data/models"
+    if "googlenet_model_0.pth" not in path:
         newest_versions = 0
     else:
-        versions = [int(file.split("_")[2].split(".")[0]) for file in files if file.startswith("googlenet_model_")]
+        versions = [int(file.split("_")[2].split(".")[0]) for file in path if file.startswith("googlenet_model_")]
         newest_versions = max(versions) + 1
 
     return f"models/googlenet_model_{newest_versions}.pth"

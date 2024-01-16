@@ -15,5 +15,22 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/mlops-410812/mlops:latest"]
 
+  # Step 3: Build another Docker image using train_model.dockerfile
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-f",
+        "dockerfiles/train_model.dockerfile",
+        "-t",
+        "gcr.io/mlops-410812/train-model:latest",
+        ".",
+      ]
+
+  # Step 4: Push the train-model image to Google Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/mlops-410812/train-model:latest"]
+
 images:
   - "gcr.io/mlops-410812/mlops:latest"
+  - "gcr.io/mlops-410812/train-model:latest"

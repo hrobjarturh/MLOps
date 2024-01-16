@@ -28,7 +28,7 @@ steps:
     - 'deploy'
     - 'animage'
     - '--image'
-    - 'gcr.io/delta-fact-410808/gcp_test_app:latest'
+    - 'gcr.io/delta-fact-410808/animage:latest'
     - '--platform'
     - 'managed'
     - '--region'

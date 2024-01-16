@@ -128,7 +128,3 @@ train:
 # make dataset
 dataset:
 	python animals10/data/make_dataset.py 
-
-	
-
- 

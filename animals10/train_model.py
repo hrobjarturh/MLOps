@@ -1,15 +1,17 @@
 import os
+import sys
+import time
 
 import hydra
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import wandb
 from hydra.utils import instantiate
+from Loader import Loader
 from omegaconf import DictConfig, OmegaConf
 from torch.utils.data import ConcatDataset, DataLoader
 
-from Loader import Loader
+import wandb
 from models.GoogLeNet import GoogLeNet
 
 # TODO: Add logger
@@ -33,9 +35,13 @@ class Trainer:
         self.criterion = criterion
         self.optimizer = optimizer
         self.hyperparams = hyperparams
+
+        print(f"loading {self.hyperparams.training_batch} train batches")
         self.train_loader = Loader().load(
             hyperparams, batch_amount=hyperparams.training_batch, folder_path="data/processed/train"
         )
+
+        print(f"loading {self.hyperparams.validation_batch} val batches")
         self.val_loader = Loader().load(
             hyperparams, batch_amount=hyperparams.validation_batch, folder_path="data/processed/val"
         )
@@ -51,11 +57,13 @@ class Trainer:
         wandb.init(project="MLOps", entity="naelr")
         training_loss = []
         validation_accuracies = []
-        print("\n Starting training process ...")
+        print("\nStarting training process ...")
         for epoch in range(self.hyperparams.epochs):
             self.model.train()
             epoch_loss = 0
+            step_count = 0
             for inputs, labels in self.train_loader:
+                start_time = time.time()
                 inputs, labels = inputs.to(self.device), labels.to(self.device)
                 self.optimizer.zero_grad()
                 outputs = self.model(inputs)
@@ -63,9 +71,17 @@ class Trainer:
                 loss.backward()
                 self.optimizer.step()
                 epoch_loss += loss.item()
-
+                step_count += 1
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                steps_left = len(self.train_loader) - step_count
+                print(
+                    f"Epoch={epoch}/{self.hyperparams.epochs}, step={step_count}/{len(self.train_loader)}, step time = {elapsed_time:.1f} secs, approximate time to finish = {(steps_left*elapsed_time)/60:.1f} mins",
+                    end="\r",
+                )
             avg_training_loss = epoch_loss / len(self.train_loader)
             training_loss.append(avg_training_loss)
+            print(f"\nValidating ...")
             validation_accuracy = self.validate()
             validation_accuracies.append(validation_accuracy)
 
@@ -89,6 +105,7 @@ class Trainer:
         total_samples = 0
 
         with torch.no_grad():
+            step_count = 0
             for inputs, labels in self.val_loader:
                 inputs, labels = inputs.to(self.device), labels.to(self.device)
                 outputs = self.model(inputs)
@@ -96,6 +113,8 @@ class Trainer:
 
                 total_correct += (predicted == labels).sum().item()
                 total_samples += labels.size(0)
+                step_count += 1
+                print(f"step {step_count}/{len(self.val_loader)}", end="\r")
 
         accuracy = total_correct / total_samples
         return accuracy
@@ -138,7 +157,19 @@ if __name__ == "__main__":
         cfg = OmegaConf.load(f)
         hyperparams = instantiate(cfg.hyperparameters_training)
 
-    print("Training ...")
+    print(f"System args: {sys.argv[1:]}")
+
+    for hyperparam in sys.argv[1:]:
+        hp, val = hyperparam.split("=")
+        if hp in hyperparams.keys():
+            try:
+                val = eval(val)
+            except NameError:
+                pass
+            hyperparams[hp] = val
+
+    print("Initializing training with hyperparameters:")
+    print(hyperparams)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = GoogLeNet().model.to(device)

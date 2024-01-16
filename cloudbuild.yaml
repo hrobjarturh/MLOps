@@ -1,3 +1,8 @@
+serviceAccount: 'delta-fact-410808@appspot.gserviceaccount.com'
+
+options:
+  default_logs_bucket_behavior: 'REGIONAL_USER_OWNED_BUCKET'
+
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
@@ -16,7 +21,3 @@ steps:
     - 'gcr.io/delta-fact-410808/animcon:latest'
     - '--region'
     - 'europe-north1'
-
-options:
-  serviceAccount: 'delta-fact-410808@appspot.gserviceaccount.com'
-  default_logs_bucket_behavior: 'REGIONAL_USER_OWNED_BUCKET'

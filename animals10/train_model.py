@@ -37,7 +37,7 @@ class Trainer:
             hyperparams, batch_amount=hyperparams.training_batch, folder_path="/gcs/data-mlops-animals10/data/processed/train/"
         )
         self.val_loader = Loader().load(
-            hyperparams, batch_amount=hyperparams.validation_batch, folder_path="data/processed/val/"
+            hyperparams, batch_amount=hyperparams.validation_batch, folder_path="/gcs/data-mlops-animals10/data/processed/val/"
         )
 
     def train(self):

@@ -4,4 +4,3 @@ hyperparameters_training:
   learning_rate: 0.001
   training_batch: 92
   validation_batch: 20
-  

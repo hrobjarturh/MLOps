@@ -117,6 +117,10 @@ help:
 serve:
 	uvicorn --reload --port 8000 animals10.serve:app
 
+rebuild:
+	docker build -t animals -f dockerfiles/server_model.dockerfile .
+	docker run -d --name animcon -p 80:80 animals
+
 # Train
 train:
 	python animals10/train_model.py
@@ -125,3 +129,5 @@ train:
 dataset:
 	python animals10/data/make_dataset.py 
 
+infere:
+	python animals10/inference.py

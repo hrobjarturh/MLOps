@@ -36,28 +36,35 @@ class Predictor:
         model.eval()
         return model
 
-    def predict(self, image_paths: Union[str, List[str]], top_amount: int = 1):
+    def predict(self, image_inputs: Union[str, List[str], torch.Tensor], top_amount: int = 1):
         """
         Performs image prediction using the pre-trained model.
 
         Args:
-            image_paths (Union[str, List[str]]): Path(s) to the input image(s).
+            image_paths (Union[str, List[str], torch.Tensor]): Path(s) to the input image(s) or a processed tensor.
             top_amount (int): Number of top predictions to return.
 
         Returns:
             List[tuple]: List of tuples containing the prediction results.
                 Each tuple contains (probability, label) for the corresponding image.
         """
+
         IMAGE_SIZE = 224
         # If a single path is provided, convert it to a list
-        if isinstance(image_paths, str):
-            image_paths = [image_paths]
+        if isinstance(image_inputs, str) or isinstance(image_inputs, torch.Tensor):
+            image_inputs = [image_inputs]
 
         results = []
 
-        for image_path in image_paths:
-            input_image = Image.open(image_path).convert("RGB")
-            input_batch = Preprocessing.preprocess_images(input_image, IMAGE_SIZE)
+        for image_input in image_inputs:
+            # Process image if it is a path to a file
+            if isinstance(image_input, str):
+                input_image = Image.open(image_input).convert("RGB")
+                input_batch = Preprocessing.preprocess_images(input_image, IMAGE_SIZE)
+
+            elif isinstance(image_input, torch.Tensor):
+                input_batch = image_input
+
             input_batch = input_batch.to(self.device)
 
             with torch.no_grad():

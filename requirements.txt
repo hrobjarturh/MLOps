@@ -8,3 +8,6 @@ uvicorn>=0.15.0,<0.16.0
 omegaconf==2.3.0
 Pillow==10.2.0
 pydantic==2.5.3
+ruff==0.1.13
+pre-commit==3.6.0
+

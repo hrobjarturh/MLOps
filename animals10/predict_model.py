@@ -76,4 +76,4 @@ class Predictor:
 
             results.append((float(probabilities.cpu()), int(labels.cpu())))
 
-            return results
+        return results

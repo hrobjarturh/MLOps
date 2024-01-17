@@ -1,6 +1,8 @@
-import torch
-import numpy as np
 import os
+
+import numpy as np
+import torch
+
 
 class FileCompressor:
     def __init__(self, directory):
@@ -24,7 +26,7 @@ class FileCompressor:
                     continue
 
                 # Compress and save the NumPy arrays
-                compressed_file_path = file_path.replace('.pt', '.npz')
+                compressed_file_path = file_path.replace(".pt", ".npz")
                 np.savez_compressed(compressed_file_path, *tensors)
 
                 # Remove the original .pt file
@@ -37,17 +39,17 @@ class FileCompressor:
         for filename in os.listdir(self.directory):
             if filename.endswith(".npz"):
                 npz_file_path = os.path.join(self.directory, filename)
-                
+
                 # Load the compressed .npz file
                 with np.load(npz_file_path) as data:
                     # Extract all arrays (assuming they were saved as array_0, array_1, etc.)
-                    arrays = [data[f'arr_{i}'] for i in range(len(data))]
+                    arrays = [data[f"arr_{i}"] for i in range(len(data))]
 
                     # Convert arrays to PyTorch tensors
                     tensors = [torch.from_numpy(arr) for arr in arrays]
 
                     # Save as a .pt file
-                    pt_file_path = npz_file_path.replace('.npz', '.pt')
+                    pt_file_path = npz_file_path.replace(".npz", ".pt")
                     torch.save(torch.utils.data.TensorDataset(*tensors), pt_file_path)
 
                 # Remove the original .npz file
@@ -55,7 +57,8 @@ class FileCompressor:
 
         print("Conversion of .npz files complete.")
 
+
 # Usage
 converter = FileCompressor("./data/")
 converter.pt_to_npz()  # To convert .pt to .npz and remove .pt
-#converter.npz_to_pt()  # To convert .npz back to .pt and remove .npz
+# converter.npz_to_pt()  # To convert .npz back to .pt and remove .npz

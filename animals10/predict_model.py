@@ -57,7 +57,6 @@ class Predictor:
         results = []
 
         for image_input in image_inputs:
-
             # Process image if it is a path to a file
             if isinstance(image_input, str):
                 input_image = Image.open(image_input).convert("RGB")

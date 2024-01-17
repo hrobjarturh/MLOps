@@ -129,7 +129,7 @@ def decide_filename():
         versions = [int(file.split("_")[2].split(".")[0]) for file in path if file.startswith("googlenet_model_")]
         newest_versions = max(versions) + 1
 
-    return f"gs://data-mlops-animals10/models/googlenet_model_{newest_versions}.pth"
+    return f"gs://data-mlops-animals10/data/models/googlenet_model_{newest_versions}.pth"
 
 
 if __name__ == "__main__":

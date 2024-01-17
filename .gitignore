@@ -184,3 +184,6 @@ data/Raw/*
 
 # wandb files
 wandb/*
+
+# vertex config files
+config/vertex/

@@ -39,4 +39,3 @@ class Loader:
             concatenated_dataloader = DataLoader(concatenated_dataset, hyperparams.batch_size, shuffle=True)
             print(f"Finished loading {folder_path}")
             return concatenated_dataloader
-        return None

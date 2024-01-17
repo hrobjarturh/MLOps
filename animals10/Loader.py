@@ -1,5 +1,4 @@
 import os
-
 import torch
 from torch.utils.data import ConcatDataset, DataLoader
 
@@ -10,12 +9,15 @@ class Loader:
         self.data_loader = None
 
     def load(self, hyperparams, batch_amount, folder_path="data/processed/train"):
+        if "train" in folder_path:
+            print(f"Loading training data...")
+        elif "val" in folder_path:
+            print(f"Loading validation data...")
         # List to store individual datasets
         datasets = []
         batch_counter = 0
         # Loop through the files in the folder
         for filename in os.listdir(folder_path):
-            print(filename)
             batch_counter += 1
 
             file_path = os.path.join(folder_path, filename)

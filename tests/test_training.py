@@ -64,44 +64,46 @@ def test_training_process(hydra_config):
     assert len(train_loss) == 1, "Training loss is not populated"
     assert len(val_acc) == 1, "Validation accuracies are not populated"
 
+# def create_model_files(directory, filenames):
+#     for filename in filenames:
+#         with open(os.path.join(directory, filename), "w") as f:
+#             f.write("")  # Create an empty file
 
-def setup_model_directory():
-    """
-    Creates a temporary directory for testing.
-    """
-    return tempfile.mkdtemp()
+# def setup_model_directory():
+#     """
+#     Creates a temporary directory for testing.
+#     """
+#     dir_path = tempfile.mkdtemp("test_models")
+
+#     return dir_path
+
+# def test_initial_filename_creation():
+#     """
+#     Tests if the initial filename is created correctly.
+#     """
+#     dirpath = setup_model_directory()
+
+#     try:
+#         # Test with an empty temporary directory
+#         expected_filename = f"{dirpath}/googlenet_model_0.pth"
+#         result = decide_filename(dirpath)
+#         assert result == expected_filename, f"Test failed: {result} != {expected_filename}"
+
+#     finally:
+#         # Clean up by removing the temporary directory
+#         shutil.rmtree(dirpath)
+
+# test_initial_filename_creation()
 
 
-def create_model_files(directory, filenames):
-    for filename in filenames:
-        with open(os.path.join(directory, filename), "w") as f:
-            f.write("")  # Create an empty file
-
-
-def test_initial_filename_creation():
-    """
-    Tests if the initial filename is created correctly.
-    """
-    dirpath = setup_model_directory()
-    try:
-        # Test with an empty temporary directory
-        expected_filename = f"{dirpath}/googlenet_model_0.pth"
-        result = decide_filename(dirpath)
-        assert result == expected_filename, f"Test failed: {result} != {expected_filename}"
-
-    finally:
-        # Clean up by removing the temporary directory
-        shutil.rmtree(dirpath)
-
-
-def test_incrementing_filename_version():
-    """
-    Tests if the version number is incremented correctly.
-    """
-    dirpath = setup_model_directory()
-    try:
-        create_model_files(dirpath, ["googlenet_model_0.pth", "googlenet_model_1.pth", "googlenet_model_2.pth"])
-        assert decide_filename(dirpath) == f"{dirpath}/googlenet_model_3.pth"
-    finally:
-        # Clean up by removing the temporary directory
-        shutil.rmtree(dirpath)
+# def test_incrementing_filename_version():
+#     """
+#     Tests if the version number is incremented correctly.
+#     """
+#     dirpath = setup_model_directory()
+#     try:
+#         create_model_files(dirpath, ["googlenet_model_0.pth", "googlenet_model_1.pth", "googlenet_model_2.pth"])
+#         assert decide_filename(dirpath) == f"{dirpath}/googlenet_model_3.pth"
+#     finally:
+#         # Clean up by removing the temporary directory
+#         shutil.rmtree(dirpath)

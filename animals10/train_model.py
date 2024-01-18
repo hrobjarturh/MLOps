@@ -10,6 +10,7 @@ from omegaconf import OmegaConf
 
 from animals10.Loader import Loader
 from animals10.models.GoogLeNet import GoogLeNet
+import os
 
 class Trainer:
     def __init__(self, model, device, criterion, optimizer, hyperparams) -> None:
@@ -115,19 +116,19 @@ class Trainer:
 
         accuracy = total_correct / total_samples
         return accuracy
+    
+    os.makedirs("models", exist_ok=True)
 
-    def save_model(self, filepath="gs://data-mlops-animals-10/data-mlops-animals10/data/models/"):
-        """
-        Saves the trained model's state dictionary to a file.
+    def save_model(self, filepath="models/googlenet_model.pth"):
+            """
+            Saves the trained model's state dictionary to a file.
 
-        Args:
-            filepath (str): Path to save the model file.
-        """
+            Args:
+                filepath (str): Path to save the model file.
+            """
+            torch.save(self.model.state_dict(), filepath)
 
-        torch.save(self.model.state_dict(), filepath)
-
-
-def decide_filename(path="gs://data-mlops-animals-10/data-mlops-animals10/data/models"):
+def decide_filename(folder="models"):
     """
     Decides the filename for a new version of the GoogleNet model.
 
@@ -138,15 +139,14 @@ def decide_filename(path="gs://data-mlops-animals-10/data-mlops-animals10/data/m
         str: The filename for the new version of the GoogleNet model.
     """
 
-    if "googlenet_model_0.pth" not in path:
-
+    files = os.listdir(folder)
+    if "googlenet_model_0.pth" not in files:
         newest_versions = 0
     else:
-        versions = [int(file.split("_")[2].split(".")[0]) for file in path if file.startswith("googlenet_model_")]
+        versions = [int(file.split("_")[2].split(".")[0]) for file in files if file.startswith("googlenet_model_")]
         newest_versions = max(versions) + 1
 
-    return f"{path}/googlenet_model_{newest_versions}.pth"
-
+    return f"models/googlenet_model_{newest_versions}.pth"
 
 if __name__ == "__main__":
     print("Opening config files ...")

@@ -30,12 +30,12 @@ def test_data_loading(hydra_config):
     train_loader = Loader().load(
         hydra_config.hyperparameters_training,
         batch_amount=hydra_config.hyperparameters_training.training_batch,
-        gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/train",
+        gcs_path="gs://data-mlops-animals-10/data-mlops-animals10/data/processed/train",
     )
     validation_loader = Loader().load(
         hydra_config.hyperparameters_training,
         batch_amount=hydra_config.hyperparameters_training.validation_batch,
-        gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/val",
+        gcs_path="gs://data-mlops-animals-10/data-mlops-animals10/data/processed/val",
     )
 
     assert train_loader is not None, "Training data loader is None"
@@ -63,6 +63,7 @@ def test_training_process(hydra_config):
 
     assert len(train_loss) == 1, "Training loss is not populated"
     assert len(val_acc) == 1, "Validation accuracies are not populated"
+
 
 # def create_model_files(directory, filenames):
 #     for filename in filenames:

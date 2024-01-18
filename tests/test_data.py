@@ -20,12 +20,18 @@ def load_data(dataset_type):
     # Initialize the loaders
     if dataset_type == "train":
         train_loader = Loader().load(
-            hyperparameters, batch_amount = 5, gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/train")
+            hyperparameters,
+            batch_amount=5,
+            gcs_path="gs://data-mlops-animals-10/data-mlops-animals10/data/processed/train",
+        )
         return train_loader, data_shape, num_labels
 
     elif dataset_type == "validation":
         validation_loader = Loader().load(
-            hyperparameters, batch_amount = 5, gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/val")
+            hyperparameters,
+            batch_amount=5,
+            gcs_path="gs://data-mlops-animals-10/data-mlops-animals10/data/processed/val",
+        )
         return validation_loader, data_shape, num_labels
 
 

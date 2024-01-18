@@ -1,16 +1,17 @@
+import os
 import sys
 import time
 
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import wandb
 from hydra.utils import instantiate
 from omegaconf import OmegaConf
 
+import wandb
 from animals10.Loader import Loader
 from animals10.models.GoogLeNet import GoogLeNet
-import os
+
 
 class Trainer:
     def __init__(self, model, device, criterion, optimizer, hyperparams) -> None:
@@ -33,12 +34,16 @@ class Trainer:
 
         print(f"loading {self.hyperparams.training_batch} train batches")
         self.train_loader = Loader().load(
-            hyperparams, batch_amount=hyperparams.training_batch, gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/train/"
+            hyperparams,
+            batch_amount=hyperparams.training_batch,
+            gcs_path="gs://data-mlops-animals-10/data-mlops-animals10/data/processed/train/",
         )
 
         print(f"loading {self.hyperparams.validation_batch} val batches")
         self.val_loader = Loader().load(
-            hyperparams, batch_amount=hyperparams.validation_batch, gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/val/"
+            hyperparams,
+            batch_amount=hyperparams.validation_batch,
+            gcs_path="gs://data-mlops-animals-10/data-mlops-animals10/data/processed/val/",
         )
 
     def train(self, log_to_wandb=True):
@@ -116,17 +121,18 @@ class Trainer:
 
         accuracy = total_correct / total_samples
         return accuracy
-    
+
     os.makedirs("models", exist_ok=True)
 
     def save_model(self, filepath="models/googlenet_model.pth"):
-            """
-            Saves the trained model's state dictionary to a file.
+        """
+        Saves the trained model's state dictionary to a file.
 
-            Args:
-                filepath (str): Path to save the model file.
-            """
-            torch.save(self.model.state_dict(), filepath)
+        Args:
+            filepath (str): Path to save the model file.
+        """
+        torch.save(self.model.state_dict(), filepath)
+
 
 def decide_filename(folder="models"):
     """
@@ -147,6 +153,7 @@ def decide_filename(folder="models"):
         newest_versions = max(versions) + 1
 
     return f"models/googlenet_model_{newest_versions}.pth"
+
 
 if __name__ == "__main__":
     print("Opening config files ...")

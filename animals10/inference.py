@@ -11,6 +11,7 @@ from data.Preprocessing import Preprocessing
 
 IMAGE_SIZE = 224
 
+
 def translate(index_to_lookup):
     """
     Translate the call int to the class string
@@ -26,6 +27,7 @@ def translate(index_to_lookup):
         translation = translation_dict[list(translation_dict.keys())[index_to_lookup]]
     return translation
 
+
 translation_dict = {
     "dog": "cane",
     "horse": "cavallo",
@@ -38,6 +40,7 @@ translation_dict = {
     "spider": "ragno",
     "squirrel": "scoiattolo",
 }
+
 
 def is_file(path):
     """
@@ -59,12 +62,13 @@ def is_file(path):
     else:
         raise FileNotFoundError
 
+
 def get_token():
-    token = subprocess.check_output(["gcloud","auth", "print-identity-token"])
+    token = subprocess.check_output(["gcloud", "auth", "print-identity-token"])
     return token.decode().strip()
 
-def predict(input_image_path):
 
+def predict(input_image_path):
     img = Image.open(input_image_path).convert("RGB")
 
     tensor_data = Preprocessing.preprocess_images(img, IMAGE_SIZE)
@@ -83,36 +87,35 @@ def predict(input_image_path):
     # Convert the payload to JSON
     payload_json = json.dumps(payload)
 
-    print('\nSending request ...')
+    print("\nSending request ...")
     # Send a POST request to the FastAPI endpoint
     response = requests.post(f"{fastapi_url}{endpoint}", data=payload_json, headers=headers)
     print("Response code:", response.status_code)
 
     # Check the response
     if response.status_code == 200:
-        
         output = response.json().get("results")
         print("\Output from server: ", output)
         translation = translate(output[0][1])
-        print(f'Predicted Animal: {translation}\n')
+        print(f"Predicted Animal: {translation}\n")
 
     elif response.status_code == 401:
         print("Response code:", response.status_code, "\n (Update GCP Bearer token)")
     else:
         print("Error:", response.status_code)
 
+
 @click.command()
-@click.option('--file', default=None, help='Path to file to infere on.')
+@click.option("--file", default=None, help="Path to file to infere on.")
 def argpasser(file):
     if file:
         if not is_file(file):
-            print('Input is not a file.')
+            print("Input is not a file.")
         else:
             predict(file)
     else:
-        print('Please include a path to a file.')
+        print("Please include a path to a file.")
+
 
 if __name__ == "__main__":
-
     argpasser()
-    

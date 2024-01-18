@@ -394,7 +394,17 @@ While we acknowledge that our code is not flawless, we haven't implemented profi
 >
 > Answer:
 
---- question 17 fill here ---
+* Container Registry: Store docker images and docker containers.
+
+* Cloud Run: Deployes and hosts applications. We used it to host the backend server for our model.
+
+* Cloud Build: Automates the building and deployment process by connecting to repositories and executing triggers at predefined times. We used the triggers function to update the deployed model when the source code is updated.
+
+* Cloud Storage: Used to store repositories. We used it to store our processed data as well as trained models.
+
+* Vertex AI: Toolbox for AI development and deployment. We used it to train our model.
+
+* Cloud Alerts: Monitors a process and alerts the user if a pre-defined condition is met.
 
 ### Question 18
 
@@ -409,7 +419,7 @@ While we acknowledge that our code is not flawless, we haven't implemented profi
 >
 > Answer:
 
---- question 18 fill here ---
+We utilised the compute engine indirectly, through Vertex AI. We used Vertex AI to accelerate the setup proccess and perform the training of our model. For the training itself we initialised the general-purpose virtual machine type n1-highmem-32. Through a trigger we dockerise the training process and store it in the container registry. Then we create a custom job where we specify the region, machine type and the WandB connection, which logs the training process.
 
 ### Question 19
 
@@ -418,7 +428,9 @@ While we acknowledge that our code is not flawless, we haven't implemented profi
 >
 > Answer:
 
---- question 19 fill here ---
+![sweep](figures/buckets1.png)
+![sweep](figures/buckets2.png)
+
 
 ### Question 20
 
@@ -427,7 +439,7 @@ While we acknowledge that our code is not flawless, we haven't implemented profi
 >
 > Answer:
 
---- question 20 fill here ---
+![sweep](figures/registry.png)
 
 ### Question 21
 
@@ -436,7 +448,7 @@ While we acknowledge that our code is not flawless, we haven't implemented profi
 >
 > Answer:
 
---- question 21 fill here ---
+![sweep](figures/build.png)
 
 ### Question 22
 
@@ -452,7 +464,19 @@ While we acknowledge that our code is not flawless, we haven't implemented profi
 >
 > Answer:
 
---- question 22 fill here ---
+The model application can be deployed both locally and in the cloud. To deploy it locally a user can simply run the following command
+
+> uvicorn --reload --port 8000 animals10.serve:app
+
+or call the make function
+
+> make serve
+
+The cloud application is deployed automatiaclly via a trigger that is executed when the github main brach has been pushed. This dockerises an image that is then execuded with the command:
+
+> CMD ["uvicorn", "animals10.serve:app", "--host", "0.0.0.0", "--port", "8080"]
+
+It is also possible to deploy the model by running the trigger manually through the cloud run UI on GCP.
 
 ### Question 23
 

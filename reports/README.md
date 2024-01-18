@@ -154,7 +154,9 @@ Using the out-of-the-box model from torchvision was a great help in getting star
 >
 > Answer:
 
---- question 4 fill here ---
+We have used the Conda package manager to manage dependencies. The environment.yml file contains everything that is needed to run and develop the project. To get a copy of the environment, the new team member would simply have to clone the repository, and then use the command `conda env create -f environment.yml`.
+
+Of course, the environment may change over the course of development, so it should be commited frequently to the repository.
 
 ### Question 5
 
@@ -169,7 +171,13 @@ Using the out-of-the-box model from torchvision was a great help in getting star
 > *experiments.*
 > Answer:
 
-We
+Our code is structured using the MLOps cookiecutter template. Everything that is run as part of the project is in the project folder, while everything else (data files, model files, config files) are in the root directory.
+
+ We have filled out the following folders: data, dockerfiles, models, notebooks, reports, tests, and of course the project itself (animals10).
+
+In addition to these, we also added a config folder, which holds the YAML files for setting up experiments. We also have a cloudbuild folder, which contains the YAML file that builds the docker image for deploying the model.
+
+We have not filled out the docs folder, since this is just a demo project not meant for long-term maintenance. However, for documentation, we have tried to comment code and make use of docstrings where relevant.
 
 ### Question 6
 
@@ -306,7 +314,11 @@ To configure a sweep, the developer should create a sweep.yaml file in the confi
 >
 > Answer:
 
---- question 13 fill here ---
+It's challenging to guarantee that no information is lost, but we implement practices to enhance reproducibility. We employ configuration files to systematically define experiment parameters, providing a clear and documented blueprint for each experiment. This minimizes the risk of oversight and aids in recreating experiments precisely.
+
+We also use the Weights and Biases (W&B) platform to log comprehensive details of our experiments, including hyperparameters, metrics, and artifacts. This not only facilitates result tracking but also enables others to replicate our experiments.
+
+Furthermore, we containerize our training environment using Docker. By encapsulating dependencies and configurations within a Docker container, we create a standardized and isolated environment. This ensures that anyone, regardless of their system configuration, can reproduce our experiments consistently. Through this combination of configuration files, W&B logging, and Docker containerization, we achieve reproducibility of our experiments.
 
 ### Question 14
 
@@ -322,8 +334,16 @@ To configure a sweep, the developer should create a sweep.yaml file in the confi
 > *As seen in the second image we are also tracking ... and ...*
 >
 > Answer:
+In our experimentation, we monitor several metrics to gauge the performance and effectiveness of our models. Firstly, we track the training loss, which provides insights into how well our model is learning from the training data. A decreasing training loss indicates that the model is converging and effectively minimizing the difference between predicted and actual values. This metric is crucial for assessing the model's training progress and identifying potential issues, such as overfitting or underfitting.
 
---- question 14 fill here ---
+Validation accuracy is another important metric we monitor. It measures the model's performance on a separate dataset not used during training, giving an indication of its generalization capabilities. A high validation accuracy signifies that the model is good at making accurate predictions on unseen data.
+
+Additionally, since one of our group members has a GPU, we can also track GPU utilization. This metric can show how efficiently the model/training is utilizing available hardware resources. Optimizing GPU utilization ensures that computational power is maximized, contributing to faster training times and more effective utilization of hardware capabilities. By itself, GPU util only gives an indication of how the program is running, and should be combined with profiling tools to actually inspect and understand what operations are being executed and for how long.
+
+By comprehensively tracking these metrics using the Weights and Bias framework, we gain a comprehensive understanding of our model's performance, enabling informed decisions and iterative improvements throughout the development process.
+
+![sweep](figures/wandb-sweep.png)
+![sweep](figures/wandb-gpu.png)
 
 ### Question 15
 
@@ -353,7 +373,9 @@ To configure a sweep, the developer should create a sweep.yaml file in the confi
 >
 > Answer:
 
---- question 16 fill here ---
+When encountering bugs during our experiments, we adopted a systematic approach to debugging. We utilized the Python debugger, leveraging the `breakpoint()` method to inspect variable values and trace the flow of our code. To expedite the debugging process, we streamlined our experiments, limiting them to a single epoch, one data batch, and one validation batch. This allowed for faster iterations and pinpointing specific issues.
+
+While we acknowledge that our code is not flawless, we haven't implemented profiling. We recognize the potential benefits of profiling tools in identifying bottlenecks and optimizing performance. Profiling can offer valuable insights into the runtime behavior of our code, helping address inefficiencies and enhance overall execution.
 
 ## Working in the cloud
 

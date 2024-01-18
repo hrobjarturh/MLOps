@@ -8,11 +8,8 @@ import wandb
 from hydra.utils import instantiate
 from omegaconf import OmegaConf
 
-from animals-10.Loader import Loader
-from animals-10.models.GoogLeNet import GoogLeNet
-
-# TODO: Add logger
-
+from animals10.Loader import Loader
+from animals10.models.GoogLeNet import GoogLeNet
 
 class Trainer:
     def __init__(self, model, device, criterion, optimizer, hyperparams) -> None:

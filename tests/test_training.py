@@ -30,12 +30,12 @@ def test_data_loading(hydra_config):
     train_loader = Loader().load(
         hydra_config.hyperparameters_training,
         batch_amount=hydra_config.hyperparameters_training.training_batch,
-        folder_path="data/processed/train",
+        gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/train",
     )
     validation_loader = Loader().load(
         hydra_config.hyperparameters_training,
         batch_amount=hydra_config.hyperparameters_training.validation_batch,
-        folder_path="data/processed/val",
+        gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/val",
     )
 
     assert train_loader is not None, "Training data loader is None"

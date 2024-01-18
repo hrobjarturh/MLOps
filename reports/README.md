@@ -530,7 +530,7 @@ This insight can be used to strategize and plan future development of the produc
 >
 > Answer:
 
---- question 25 fill here ---
+![sweep](figures/diagram.png)
 
 ### Question 26
 

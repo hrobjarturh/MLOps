@@ -129,7 +129,13 @@ s213820, s184677, s144841, s230374
 >
 > Answer:
 
---- question 3 fill here ---
+We used the `torchvision` framework, and specifically the `models` module, which provides a suite of pre-defined model architectures and even pre-trained weights. We have used the pre-defined model GoogLeNet found [here](https://github.com/pytorch/vision/blob/main/torchvision/models/googlenet.py).
+
+As a default, the model is set up with an output dimension of 1000, to classify the ImageNet dataset. The dataset we use only has 10 classes, so it is necessary to specify this when instantiating the model.
+
+We initialize the weights randomly, as we are interested in training the model ourselves and conduct experiments with regard to the training process.
+
+Using the out-of-the-box model from torchvision was a great help in getting started with the project, as it required minimal code and only small adjustments to make it work. One important thing is that the input dimension is of the correct shape - image should be 3 color channels and size should be minimum 224 in the case of GoogLeNet, as described in the documentation [here](https://pytorch.org/hub/pytorch_vision_googlenet/).
 
 ## Coding environment
 

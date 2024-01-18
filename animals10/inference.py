@@ -11,6 +11,34 @@ from data.Preprocessing import Preprocessing
 
 IMAGE_SIZE = 224
 
+def translate(index_to_lookup):
+    """
+    Translate the call int to the class string
+
+    Args:
+    - path (int): the number of the class
+
+    Returns:
+    - The string value of the class
+    """
+    if 0 <= index_to_lookup < len(translation_dict):
+        # Get the corresponding translation from the dictionary
+        translation = translation_dict[list(translation_dict.keys())[index_to_lookup]]
+    return translation
+
+translation_dict = {
+    "dog": "cane",
+    "horse": "cavallo",
+    "elephant": "elefante",
+    "butterfly": "farfalla",
+    "chicken": "gallina",
+    "cat": "gatto",
+    "cow": "mucca",
+    "sheep": "pecora",
+    "spider": "ragno",
+    "squirrel": "scoiattolo",
+}
+
 def is_file(path):
     """
     Check if the given path is a directory, a file, or does not exist.
@@ -62,8 +90,12 @@ def predict(input_image_path):
 
     # Check the response
     if response.status_code == 200:
+        
         output = response.json().get("results")
-        print("\noutput: ", output)
+        print("\Output from server: ", output)
+        translation = translate(output[0][1])
+        print(f'Predicted Animal: {translation}\n')
+
     elif response.status_code == 401:
         print("Response code:", response.status_code, "\n (Update GCP Bearer token)")
     else:

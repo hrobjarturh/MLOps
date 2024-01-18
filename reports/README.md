@@ -207,7 +207,7 @@ For formatting we have used ruff linting and formatting. Additionally, we have w
 >
 > Answer:
 
---- question 7 fill here ---
+We focused on creating tests for the training process and the data. We designed a test for the Loader, which is a module created for this project to load data from the cloud to be used. We test that the data is in the right location and has the right shape. We tested that the training process is able to load the correct data, that it saves the model correctly and in the right place.
 
 ### Question 8
 
@@ -278,7 +278,15 @@ It would be beneficial to be able to checkout different data versions, as part o
 >
 > Answer:
 
---- question 11 fill here ---
+We incorporated a Github action that is located in:
+> .github/workflows/tests.yml
+
+This action generates a report using the coverage package:
+> coverage run -m pytest tests/
+
+This results in a report being created that is uploaded as an artifact. 
+
+We then use the linter ruff by checking that all the files are formatted correclty.
 
 ## Running code and tracking experiments
 
@@ -360,7 +368,31 @@ By comprehensively tracking these metrics using the Weights and Bias framework, 
 >
 > Answer:
 
---- question 15 fill here ---
+All of our dockerfiles are stored in 
+>dockerfiles/
+
+We dockerized our application and training process through a yaml file that is called when the cloud trigger is activated. We first build the docker image using the cloud:
+```
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-f",
+        "dockerfiles/server_model.dockerfile",
+        "-t",
+        "gcr.io/delta-fact-410808/animage:latest",
+        ".",
+      ]
+```
+Here we define the dockerfile we want to execute, project id on the cloud and the name of the image that is built.
+
+Then we push the image to the container registry:
+```
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/delta-fact-410808/animage:latest"]
+```
+Now the image can be used by othe cloud functionality such as the Vertex AI and the Cloud Run functionality.
+
 
 ### Question 16
 
@@ -401,7 +433,7 @@ While we acknowledge that our code is not flawless, we haven't implemented profi
 * Cloud Build: Automates the building and deployment process by connecting to repositories and executing triggers at predefined times. We used the triggers function to update the deployed model when the source code is updated.
 
 * Cloud Storage: Used to store repositories. We used it to store our processed data as well as trained models.
-
+´
 * Vertex AI: Toolbox for AI development and deployment. We used it to train our model.
 
 * Cloud Alerts: Monitors a process and alerts the user if a pre-defined condition is met.
@@ -495,6 +527,8 @@ Monitoring will help the longevity of our application by providing valuable insi
 
 Our app classifies images into 10 different categories of animals. There are obviously many more types of animals. And even more types of things in general. But that does not restrict users from uploading images of vintage cars and get respones like "cat" og "giraffe". And while it may be fun to find out if your friends car is more cat than giraffe, it may also be an indication that users actually want to classify cars moreso than animals.
 
+We are monitoring the cpu usage of the application. The Cloud Run functionality logs basic usage of the deployed application such as requests, latency, memory and cpu usage etc. We utilised this by implementing a Cloud Alert that monitors the deployed application and sends an alert if the cpu usage is higher than 95%.
+
 This insight can be used to strategize and plan future development of the product. Without the monitoring, we might have thought that users wanted a greater variety of animals, but based on the monitoring we can make data-driven decisions that enhance the user experience in the future.
 
 ### Question 24
@@ -509,7 +543,12 @@ This insight can be used to strategize and plan future development of the produc
 >
 > Answer:
 
---- question 24 fill here ---
+* s230374 : $1.17
+* s213820 : $3.76
+* s144841 : $9.47
+
+In total we only used $14.4 for the entire project which was less than we expected to use. Most of the credits were used on the Vertex AI training process, Followed by the cloud storage. 
+
 
 ## Overall discussion of project
 
@@ -530,6 +569,16 @@ This insight can be used to strategize and plan future development of the produc
 >
 > Answer:
 
+The developer interacts with github. When the developer pushes code to github, then github actions are triggered that check the format of the code and run a test script. A coverage report is then made. 
+
+If the branch that is being pushed to is the main branch, then a trigger in the cloud is also created. This trigger dockerises the training process and the application separately. Using vertex AI, the developer can then train the model and the training and validation accuracy is logged to WandB. The training data is stored in the cloud storage and the output model is also stored there in the cloud. 
+
+The trigger will also redeploy the application if it is approved. This will take the model from the cloud and deploy it using the Cloud Run functionality.
+
+The application is being monitored with the cloud alert functionality. If the cpu utilisation is over 95 percent, it sends an alert.
+
+A user can now access the deployed model given that they have access.   
+
 ![sweep](figures/diagram.png)
 
 ### Question 26
@@ -544,7 +593,11 @@ This insight can be used to strategize and plan future development of the produc
 >
 > Answer:
 
---- question 26 fill here ---
+A lot of time went into the Google Cloud Platform. For starters, the platform has a lot of functionality to go through and a lot of options that takes time to research what they do. It also does not help that the platform could be more documented. Sometimes documentation is missing or is old, refering to an older version of the platform. Trial and error was still able to solve most problems.
+
+It also added a lot of debug time, it takes time to dockerise an image, and sometimes waiting 20 minutes to check if you were able to fix a bug can be an unpleasent experience. We solved this by reducing the amount of files that were being dockerised.
+
+Dvc was also taking up a lot of precious development time. We had issues with pulling data and setting up an environment that worked for everybody. We also realised later than we would have wanted that the data.dvc file was larger that expected which was causing problems elsewhere. We solved this by focusing more on the cloud buckets, which led to having easier access to our data.
 
 ### Question 27
 
@@ -567,6 +620,6 @@ Student s184677 was in charge of
 
 Student s144841 was in charge of
 
-Student s230374 was in charge of
+Student s230374 was in charge of creating the training and predict method, configuring the data processing to fit the model, creating the model application and hosting it on the cloud.
 
 All members contributed to the code and development of the project.

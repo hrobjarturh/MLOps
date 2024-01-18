@@ -132,3 +132,6 @@ dataset:
 
 infere:
 	python animals10/inference.py --file $(file)
+
+precommit_install:
+	pre-commit install

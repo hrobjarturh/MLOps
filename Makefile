@@ -130,4 +130,4 @@ dataset:
 	python animals10/data/make_dataset.py 
 
 infere:
-	python animals10/inference.py
+	python animals10/inference.py --file $(file)

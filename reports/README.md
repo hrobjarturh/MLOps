@@ -169,7 +169,13 @@ Using the out-of-the-box model from torchvision was a great help in getting star
 > *experiments.*
 > Answer:
 
-We
+Our code is structured using the MLOps cookiecutter template. Everything that is run as part of the project is in the project folder, while everything else (data files, model files, config files) are in the root directory.
+
+ We have filled out the following folders: data, dockerfiles, models, notebooks, reports, tests, and of course the project itself (animals10).
+
+In addition to these, we also added a config folder, which holds the YAML files for setting up experiments. We also have a cloudbuild folder, which contains the YAML file that builds the docker image for deploying the model.
+
+We have not filled out the docs folder, since this is just a demo project not meant for long-term maintenance. However, for documentation, we have tried to comment code and make use of docstrings where relevant.
 
 ### Question 6
 

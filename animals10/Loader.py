@@ -36,7 +36,8 @@ class Loader:
                 dataset = torch.load(io.BytesIO(file_data))
                 datasets.append(dataset)
 
-                if batch_counter >= batch_amount:
+                if batch_counter >= batch_amount and (("train/" in blob.name) or ("val/" in blob.name)):
+
                     break
 
         if not datasets:

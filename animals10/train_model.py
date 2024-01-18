@@ -127,7 +127,7 @@ class Trainer:
         torch.save(self.model.state_dict(), filepath)
 
 
-def decide_filename():
+def decide_filename(path="gs://data-mlops-animals-10/data-mlops-animals10/data/models"):
     """
     Decides the filename for a new version of the GoogleNet model.
 
@@ -138,8 +138,6 @@ def decide_filename():
         str: The filename for the new version of the GoogleNet model.
     """
 
-
-    path = "gs://data-mlops-animals-10/data-mlops-animals10/data/models/"
     if "googlenet_model_0.pth" not in path:
 
         newest_versions = 0
@@ -147,7 +145,7 @@ def decide_filename():
         versions = [int(file.split("_")[2].split(".")[0]) for file in path if file.startswith("googlenet_model_")]
         newest_versions = max(versions) + 1
 
-    return f"gs://data-mlops-animals-10/data-mlops-animals10/data/models/googlenet_model_{newest_versions}.pth"
+    return f"{path}/googlenet_model_{newest_versions}.pth"
 
 
 if __name__ == "__main__":
@@ -171,7 +169,7 @@ if __name__ == "__main__":
     print(hyperparams)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = GoogLeNet().model.to(device)
+    model = GoogLeNet().to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=hyperparams.learning_rate)
     trainer = Trainer(model, device, criterion, optimizer, hyperparams)

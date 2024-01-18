@@ -15,13 +15,6 @@ COPY pyproject.toml pyproject.toml
 COPY animals10/ animals10/
 
 RUN pip install -r requirements.txt --no-cache-dir
-RUN pip install . --no-deps --no-cache-dir
-
-# Get the data
-COPY .git .git
-COPY .dvc .dvc
-COPY data.dvc data.dvc
-
-# RUN dvc pull
+RUN pip install -e . --no-deps --no-cache-dir
 
 ENTRYPOINT ["python", "-u", "animals10/train_model.py"]

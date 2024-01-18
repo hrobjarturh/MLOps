@@ -16,10 +16,10 @@ def load_data():
 
     # Initialize the loaders
     train_loader = Loader().load(
-        hyperparameters, batch_amount=hyperparameters.training_batch, folder_path="data/processed/train"
+        hyperparameters, batch_amount=hyperparameters.training_batch, gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/train"
     )
     validation_loader = Loader().load(
-        hyperparameters, batch_amount=hyperparameters.validation_batch, folder_path="data/processed/val"
+        hyperparameters, batch_amount=hyperparameters.validation_batch, gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/val"
     )
 
     N_train = 18325

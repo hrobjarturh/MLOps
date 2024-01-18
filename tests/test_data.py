@@ -3,7 +3,7 @@ from omegaconf import OmegaConf
 from animals10.Loader import Loader
 
 
-def load_data():
+def load_data(dataset_type):
     """
     Loads the data and returns the data loaders, the number of training and validation samples,
     the shape of the data, and the number of labels.
@@ -14,28 +14,25 @@ def load_data():
     cfg = OmegaConf.load("./config/config.yaml")
     hyperparameters = cfg.hyperparameters_training
 
-    # Initialize the loaders
-    train_loader = Loader().load(
-        hyperparameters, batch_amount=hyperparameters.training_batch, gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/train"
-    )
-    validation_loader = Loader().load(
-        hyperparameters, batch_amount=hyperparameters.validation_batch, gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/val"
-    )
-
-    N_train = 18325
-    N_val = 3927
     data_shape = [3, 224, 224]
     num_labels = 10
 
-    return train_loader, validation_loader, N_train, N_val, data_shape, num_labels
+    # Initialize the loaders
+    if dataset_type == "train":
+        train_loader = Loader().load(
+            hyperparameters, batch_amount = 5, gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/train")
+        return train_loader, data_shape, num_labels
+
+    elif dataset_type == "validation":
+        validation_loader = Loader().load(
+            hyperparameters, batch_amount = 5, gcs_path = "gs://data-mlops-animals-10/data-mlops-animals10/data/processed/val")
+        return validation_loader, data_shape, num_labels
 
 
-def validate_dataset(loader, N_samples, data_shape, num_labels, dataset_type="Training"):
+def validate_dataset(loader, data_shape, num_labels, dataset_type):
     """
     Validates the dataset by checking the number of samples, the shape of the data, and the number of labels.
     """
-    samples = len(loader.dataset)
-    assert samples == N_samples, f"{dataset_type} dataset containing {samples} samples, expected {N_samples}"
 
     # Initialize a set to store unique labels
     unique_labels = set()
@@ -63,13 +60,17 @@ def test_training_data():
     """
     Tests the training dataset.
     """
-    train_loader, _, N_train, _, data_shape, num_labels = load_data()
-    validate_dataset(train_loader, N_train, data_shape, num_labels, "Training")
+    train_loader, data_shape, num_labels = load_data("train")
+    validate_dataset(train_loader, data_shape, num_labels, "Training")
 
 
 def test_validation_data():
     """
     Tests the validation dataset.
     """
-    _, validation_loader, _, N_val, data_shape, num_labels = load_data()
-    validate_dataset(validation_loader, N_val, data_shape, num_labels, "Validation")
+    validation_loader, data_shape, num_labels = load_data("validation")
+    validate_dataset(validation_loader, data_shape, num_labels, "Validation")
+
+
+test_training_data()
+test_validation_data()

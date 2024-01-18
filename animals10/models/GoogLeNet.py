@@ -13,9 +13,14 @@ def my_app(cfg: DictConfig) -> None:
     print(OmegaConf.to_yaml(cfg))
 
 
-class GoogLeNet:
+class GoogLeNet(nn.Module):
+
     def __init__(self):
+        super(GoogLeNet, self).__init__()
         self.model = models.googlenet(weights=None, init_weights=True, num_classes=10)
+
+    def forward(self, x):
+        return self.model(x)
 
 
 if __name__ == "__main__":

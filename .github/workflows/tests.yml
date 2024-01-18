@@ -22,7 +22,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/*.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
       - name: Install dependencies
@@ -32,5 +32,16 @@ jobs:
           pip install -r requirements_tests.txt
       - name: Test with pytest
         run: |
-          pip install pytest
           pytest tests/
+        - name: Generate Report
+        run: |
+          coverage run -m pytest tests/
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: /.coverage
+      - name: Test with ruff
+        run: |
+          ruff check .
+          ruff format .

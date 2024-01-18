@@ -50,33 +50,33 @@ end of the project.
 
 ### Week 1
 
-* [ ] Create a git repository
-* [ ] Make sure that all team members have write access to the github repository
+* [x] Create a git repository
+* [x] Make sure that all team members have write access to the github repository
 * [ ] Create a dedicated environment for you project to keep track of your packages
-* [ ] Create the initial file structure using cookiecutter
-* [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
-* [ ] Add a model file and a training script and get that running
-* [ ] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
+* [x] Create the initial file structure using cookiecutter
+* [x] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
+* [x] Add a model file and a training script and get that running
+* [x] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
 * [ ] Remember to comply with good coding practices (`pep8`) while doing the project
 * [ ] Do a bit of code typing and remember to document essential parts of your code
-* [ ] Setup version control for your data or part of your data
-* [ ] Construct one or multiple docker files for your code
-* [ ] Build the docker files locally and make sure they work as intended
-* [ ] Write one or multiple configurations files for your experiments
-* [ ] Used Hydra to load the configurations and manage your hyperparameters
+* [x] Setup version control for your data or part of your data
+* [x] Construct one or multiple docker files for your code
+* [x] Build the docker files locally and make sure they work as intended
+* [x] Write one or multiple configurations files for your experiments
+* [x] Used Hydra to load the configurations and manage your hyperparameters
 * [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
       you can optimize your code
-* [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
+* [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
       consider running a hyperparameter optimization sweep.
 * [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
-* [ ] Write unit tests related to the data part of your code
-* [ ] Write unit tests related to model construction and or model training
-* [ ] Calculate the coverage.
+* [x] Write unit tests related to the data part of your code
+* [x] Write unit tests related to model construction and or model training
+* [x] Calculate the coverage.
 * [ ] Get some continuous integration running on the github repository
-* [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
+* [x] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
 * [ ] Create a trigger workflow for automatically building your docker images
 * [ ] Get your model training in GCP using either the Engine or Vertex AI
 * [ ] Create a FastAPI application that can do inference using your model
@@ -96,7 +96,7 @@ end of the project.
 
 * [ ] Revisit your initial project description. Did the project turn out as you wanted?
 * [ ] Make sure all group members have a understanding about all parts of the project
-* [ ] Uploaded all your code to github
+* [x] Uploaded all your code to github
 
 ## Group information
 
@@ -105,7 +105,7 @@ end of the project.
 >
 > Answer:
 
---- question 1 fill here ---
+19
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -116,7 +116,7 @@ end of the project.
 >
 > Answer:
 
---- question 2 fill here ---
+s213820, s184677, s144841, s230374
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -163,7 +163,7 @@ end of the project.
 > *experiments.*
 > Answer:
 
---- question 5 fill here ---
+We
 
 ### Question 6
 
@@ -174,7 +174,7 @@ end of the project.
 >
 > Answer:
 
---- question 6 fill here ---
+For formatting we have used ruff linting and formatting. Additionally, we have written docstrings for the trickier/more complex parts of the code. It is important to document the work in larger projects, because otherwise your colleagues (and future-you) will not understand the code. This leads to technical debt in the long-term. Documenting code ad hoc is an investment, but it will lead to much better, understandable and maintainable code in the future.
 
 ## Version control
 
@@ -223,7 +223,15 @@ end of the project.
 >
 > Answer:
 
---- question 9 fill here ---
+For small changes, commits directly to the main branch with a descriptive message was tolerated. However, if the code change spanned more than just a few lines, we made use of branches and PRs. This enables everyone to see which changes are in progress, and what parts of the project are being actively developed.
+
+We did not really implement a single naming convention for the branches. One naming convention is "type/subject". And so, if we were developing the training script, the branch would be "feature/trainmodel". Other types could be *bugfix, experimental, WIP*.
+
+Another naming convention is to use the ititials of the developer, and then the subject, e.g. "john/trainmodel". This was, everyone can easily see who is working on what.
+
+For smaller projects, like this one, it can also be alright to just use the subject of the branch as the name, e.g. "trainmodel". But for larger projects it is good to have a naming convention.
+
+PRs are used to merge temporary branches into the main branch, and are a good way to describe in natural language the changes made in the branch. The author can highlight important changes, and explain concepts. However, documentation within the code itself should also be present for future debugging.
 
 ### Question 10
 
@@ -273,7 +281,11 @@ end of the project.
 >
 > Answer:
 
---- question 12 fill here ---
+To configure experiments we used a combination of config files and CLI arguments, with an option for using Weights&Bias Sweeps. The config.yaml file in the config folder holds some default hyperparameters, and running the training without any command line arguments results in the experiement being run with the default parameters: `python train_model.py`
+
+To overwrite the parameters directly for a single run, additional arguments for any of the hyperparameters can be provided: `python train_model.py learning_rate=0.01 batch_size=32`.
+
+To configure a sweep, the developer should create a sweep.yaml file in the config folder and run: `wandb sweep sweep.yaml`.
 
 ### Question 13
 
@@ -425,7 +437,11 @@ end of the project.
 >
 > Answer:
 
---- question 23 fill here ---
+Monitoring will help the longevity of our application by providing valuable insight into how the users are actually *using* the app. There might be a great incoherence between the intended usage of the deployed model, and the actual usage. Monitoring is a way to discover this, because without it, how would we ever know what is going on in production?
+
+Our app classifies images into 10 different categories of animals. There are obviously many more types of animals. And even more types of things in general. But that does not restrict users from uploading images of vintage cars and get respones like "cat" og "giraffe". And while it may be fun to find out if your friends car is more cat than giraffe, it may also be an indication that users actually want to classify cars moreso than animals.
+
+This insight can be used to strategize and plan future development of the product. Without the monitoring, we might have thought that users wanted a greater variety of animals, but based on the monitoring we can make data-driven decisions that enhance the user experience in the future.
 
 ### Question 24
 
@@ -491,4 +507,12 @@ end of the project.
 >
 > Answer:
 
---- question 27 fill here ---
+Student s213820 was in charge of setting up the dataset processing, experiment configurations and sweeps in wandb, as well as keeping the code formatted and repository tidy.
+
+Student s184677 was in charge of
+
+Student s144841 was in charge of
+
+Student s230374 was in charge of
+
+All members contributed to the code and development of the project.

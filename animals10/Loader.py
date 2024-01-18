@@ -1,6 +1,6 @@
-import os
-
 import torch
+from google.cloud import storage
+import io
 from torch.utils.data import ConcatDataset, DataLoader
 
 
@@ -9,40 +9,46 @@ class Loader:
     def __init__(self):
         self.data_loader = None
 
-    def load(self, hyperparams, batch_amount, folder_path="data/processed/train"):
-        if "train" in folder_path:
-            print(f"Loading training data...")
-        elif "val" in folder_path:
-            print(f"Loading validation data...")
+    def load(self, hyperparams, batch_amount, gcs_path):
+        client = storage.Client()
+        bucket_name, prefix = self.parse_gcs_path(gcs_path)
+        bucket = client.bucket(bucket_name)
+
+        print("Client", {client})
+        print("Bucket Name", {bucket_name})
+        print("Prefix", {prefix})
+        print("Bucket", {bucket})
+
+
         # List to store individual datasets
         datasets = []
         batch_counter = 0
-        # Loop through the files in the folder
-        for filename in os.listdir(folder_path):
-            batch_counter += 1
 
-            file_path = os.path.join(folder_path, filename)
+        blobs = client.list_blobs(bucket, prefix=prefix)
 
-            # Check if the file is a torch DataLoader object
-            if filename.endswith(".pt"):
-                # Load the DataLoader object from the file
-                dataset = torch.load(file_path)
+        for blob in blobs:
+            if blob.name.endswith('.pt'):
+                print(f"Loading {blob.name} from bucket {bucket_name}")
+                batch_counter += 1
+                file_data = blob.download_as_bytes()
 
-                # Append the dataset to the list
+                # Load the dataset from bytes
+                dataset = torch.load(io.BytesIO(file_data))
                 datasets.append(dataset)
 
-            if batch_counter >= batch_amount:
-                break
+                if batch_counter >= batch_amount and "train/" in blob.name:
+                    break
 
-        # Check if any DataLoader objects were loaded
         if not datasets:
-            print("No DataLoader objects found in the folder.")
+            print("No DataLoader objects found in the bucket.")
         else:
-            # Concatenate the datasets into a single dataset
             concatenated_dataset = ConcatDataset(datasets)
-
-            # Create a DataLoader for the concatenated dataset
             concatenated_dataloader = DataLoader(concatenated_dataset, hyperparams.batch_size, shuffle=True)
-
-        print(f"Finished loading {folder_path}")
-        return concatenated_dataloader
+            print(f"Finished loading from {gcs_path}")
+            return concatenated_dataloader
+        
+    def parse_gcs_path(self, gcs_path):
+        path_parts = gcs_path.replace("gs://", "").split("/")
+        bucket_name = path_parts[0]
+        prefix = '/'.join(path_parts[1:])
+        return bucket_name, prefix

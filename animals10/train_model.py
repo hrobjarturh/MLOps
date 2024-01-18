@@ -40,12 +40,12 @@ class Trainer:
 
         print(f"loading {self.hyperparams.training_batch} train batches")
         self.train_loader = Loader().load(
-            hyperparams, batch_amount=hyperparams.training_batch, folder_path="data/processed/train"
+            hyperparams, batch_amount=hyperparams.training_batch, gcs_path = "gs://data-mlops-animals10/data/processed/train/"
         )
 
         print(f"loading {self.hyperparams.validation_batch} val batches")
         self.val_loader = Loader().load(
-            hyperparams, batch_amount=hyperparams.validation_batch, folder_path="data/processed/val"
+            hyperparams, batch_amount=hyperparams.validation_batch, gcs_path = "gs://data-mlops-animals10/data/processed/val/"
         )
 
     def train(self, log_to_wandb=True):
@@ -124,7 +124,7 @@ class Trainer:
         accuracy = total_correct / total_samples
         return accuracy
 
-    def save_model(self, filepath="models/googlenet_model.pth"):
+    def save_model(self, filepath="gs://data-mlops-animals10/data/models/"):
         """
         Saves the trained model's state dictionary to a file.
 
@@ -135,7 +135,7 @@ class Trainer:
         torch.save(self.model.state_dict(), filepath)
 
 
-def decide_filename(directory="models"):
+def decide_filename():
     """
     Decides the filename for a new version of the GoogleNet model.
 
@@ -146,14 +146,16 @@ def decide_filename(directory="models"):
         str: The filename for the new version of the GoogleNet model.
     """
 
-    files = os.listdir(directory)
-    if "googlenet_model_0.pth" not in files:
+
+    path = "gs://data-mlops-animals10/data/models/"
+    if "googlenet_model_0.pth" not in path:
+
         newest_versions = 0
     else:
-        versions = [int(file.split("_")[2].split(".")[0]) for file in files if file.startswith("googlenet_model_")]
+        versions = [int(file.split("_")[2].split(".")[0]) for file in path if file.startswith("googlenet_model_")]
         newest_versions = max(versions) + 1
 
-    return f"{directory}/googlenet_model_{newest_versions}.pth"
+    return f"gs://data-mlops-animals10/data/models/googlenet_model_{newest_versions}.pth"
 
 
 if __name__ == "__main__":

@@ -20,8 +20,3 @@ class GoogLeNet:
 
 if __name__ == "__main__":
     my_app()
-
-
-class GoogLeNet:
-    def __init__(self):
-        self.model = models.googlenet(weights=None, init_weights=True, num_classes=10)

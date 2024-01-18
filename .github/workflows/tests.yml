@@ -30,17 +30,27 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install -r requirements_tests.txt
+      - id: "auth"
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v2"
+      - name: "Use gcloud CLI"
+        run: "gcloud info"
       - name: Test with pytest
         run: |
           pytest tests/
-        - name: Generate Report
+      - name: Generate Report
         run: |
           coverage run -m pytest tests/
+          coverage report > coverage.txt
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v2
         with:
           name: coverage-report
-          path: /.coverage
+          path: /coverage.txt
+          if-no-files-found: error
       - name: Test with ruff
         run: |
           ruff check .

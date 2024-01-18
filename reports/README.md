@@ -154,7 +154,9 @@ Using the out-of-the-box model from torchvision was a great help in getting star
 >
 > Answer:
 
---- question 4 fill here ---
+We have used the Conda package manager to manage dependencies. The environment.yml file contains everything that is needed to run and develop the project. To get a copy of the environment, the new team member would simply have to clone the repository, and then use the command `conda env create -f environment.yml`.
+
+Of course, the environment may change over the course of development, so it should be commited frequently to the repository.
 
 ### Question 5
 

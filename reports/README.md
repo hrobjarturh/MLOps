@@ -260,7 +260,9 @@ PRs are used to merge temporary branches into the main branch, and are a good wa
 >
 > Answer:
 
---- question 10 fill here ---
+We did not use Data Version Control (DVC) in our project, mainly because our dataset remained fixed and did not undergo changes throughout the experiments. However, in scenarios where data modifications are likely, DVC is very useful. For instance, if we were to acquire additional images or explore different preprocessing techniques, DVC could help with managing dataset versions.
+
+It would be beneficial to be able to checkout different data versions, as part of being able to reproduce experiments. Of course, the hyperparameters, including the random seed, used to train a model, are important for reproduceability. But the data used as input is also extremely important. If we were to test how different preprocessing techniques affect model performance, DVC could help with this.
 
 ### Question 11
 

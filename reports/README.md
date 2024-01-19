@@ -52,13 +52,13 @@ end of the project.
 
 - [x] Create a git repository
 - [x] Make sure that all team members have write access to the github repository
-- [ ] Create a dedicated environment for you project to keep track of your packages
+- [x] Create a dedicated environment for you project to keep track of your packages
 - [x] Create the initial file structure using cookiecutter
 - [x] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
 - [x] Add a model file and a training script and get that running
 - [x] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
-- [ ] Remember to comply with good coding practices (`pep8`) while doing the project
-- [ ] Do a bit of code typing and remember to document essential parts of your code
+- [x] Remember to comply with good coding practices (`pep8`) while doing the project
+- [x] Do a bit of code typing and remember to document essential parts of your code
 - [x] Setup version control for your data or part of your data
 - [x] Construct one or multiple docker files for your code
 - [x] Build the docker files locally and make sure they work as intended
@@ -75,18 +75,18 @@ end of the project.
 - [x] Write unit tests related to the data part of your code
 - [x] Write unit tests related to model construction and or model training
 - [x] Calculate the coverage.
-- [ ] Get some continuous integration running on the github repository
+- [x] Get some continuous integration running on the github repository
 - [x] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
-- [ ] Create a trigger workflow for automatically building your docker images
-- [ ] Get your model training in GCP using either the Engine or Vertex AI
-- [ ] Create a FastAPI application that can do inference using your model
+- [x] Create a trigger workflow for automatically building your docker images
+- [x] Get your model training in GCP using either the Engine or Vertex AI
+- [x] Create a FastAPI application that can do inference using your model
 - [ ] If applicable, consider deploying the model locally using torchserve
-- [ ] Deploy your model in GCP using either Functions or Run as the backend
+- [x] Deploy your model in GCP using either Functions or Run as the backend
 
 ### Week 3
 
 - [ ] Check how robust your model is towards data drifting
-- [ ] Setup monitoring for the system telemetry of your deployed model
+- [x] Setup monitoring for the system telemetry of your deployed model
 - [ ] Setup monitoring for the performance of your deployed model
 - [ ] If applicable, play around with distributed data loading
 - [ ] If applicable, play around with distributed model training
@@ -94,8 +94,8 @@ end of the project.
 
 ### Additional
 
-- [ ] Revisit your initial project description. Did the project turn out as you wanted?
-- [ ] Make sure all group members have a understanding about all parts of the project
+- [x] Revisit your initial project description. Did the project turn out as you wanted?
+- [x] Make sure all group members have a understanding about all parts of the project
 - [x] Uploaded all your code to github
 
 ## Group information
@@ -200,7 +200,7 @@ For formatting we have used ruff linting and formatting. Additionally, we have w
 >
 > Answer:
 
-We focused on creating tests for the training process and the data. We designed a test for the Loader, which is a module created for this project to load data from the cloud to be used. We test that the data is in the right location and has the right shape. We tested that the training process is able to load the correct data, that it saves the model correctly and in the right place.
+We focused on creating tests for the training process and the data. We designed a test for the Loader, which is a module created for this project to load data from the cloud to be used. We test that the data is in the right location and has the right shape. We tested that the training process works and is able to load the correct data, that it saves the model correctly and in the right place.
 
 ### Question 8
 
@@ -208,9 +208,7 @@ We focused on creating tests for the training process and the data. We designed 
 >
 > Answer length: 100-200 words.
 >
-> Example:
-> *The total code coverage of code is X%, which includes all our source code. We are far from 100% coverage of our \*\*
-> *code and even if we were then...\*
+> The total code coverage is 84%, which includes most of our soruce code including our data, Loader object, model and model training. We are not far from 100% coverage and it would probably also be beneficial to have some unittests that test our FastAPI application and our prediction script. This could perhaps done by testing if we can connect to the API and that it returns the correct output format. Furthermore, a unittest on the GCP would also be beneficial. Even with a 100% coverage there is no guarentee that our code is bug free since there might still be conor cases that we havent tested for. However, with a 100% coverage we atleast have a good indication that our code is tested for bugs and we may very likely catch a lot of bugs in that process.
 >
 > Answer:
 

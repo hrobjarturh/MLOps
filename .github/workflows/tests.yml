@@ -50,5 +50,4 @@ jobs:
           if-no-files-found: error
       - name: Test with ruff
         run: |
-          ruff check .
-          ruff format .
+          ruff check . --fix

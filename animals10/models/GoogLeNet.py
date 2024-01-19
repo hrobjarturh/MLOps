@@ -14,7 +14,6 @@ def my_app(cfg: DictConfig) -> None:
 
 
 class GoogLeNet(nn.Module):
-
     def __init__(self):
         super(GoogLeNet, self).__init__()
         self.model = models.googlenet(weights=None, init_weights=True, num_classes=10)

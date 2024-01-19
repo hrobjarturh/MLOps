@@ -128,7 +128,10 @@ train:
 # make dataset
 dataset:
 	dvc pull
-	python animals10/data/make_dataset.py 
+	python animals10/data/make_dataset.py
 
 infere:
 	python animals10/inference.py --file $(file)
+
+precommit_install:
+	pre-commit install

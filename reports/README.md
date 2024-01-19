@@ -8,7 +8,7 @@ nav_exclude: true
 This is the report template for the exam. Please only remove the text formatted as with three dashes in front and behind
 like:
 
-```--- question 1 fill here ---```
+`--- question 1 fill here ---`
 
 where you instead should add your answers. Any other changes may have unwanted consequences when your report is auto
 generated in the end of the course. For questions where you are asked to include images, start by adding the image to
@@ -44,63 +44,64 @@ be installed with `pip install click markdown`.
 
 ## Overall project checklist
 
-The checklist is *exhaustic* which means that it includes everything that you could possible do on the project in
+The checklist is _exhaustic_ which means that it includes everything that you could possible do on the project in
 relation the curricilum in this course. Therefore, we do not expect at all that you have checked of all boxes at the
 end of the project.
 
 ### Week 1
 
-* [x] Create a git repository
-* [x] Make sure that all team members have write access to the github repository
-* [ ] Create a dedicated environment for you project to keep track of your packages
-* [x] Create the initial file structure using cookiecutter
-* [x] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
-* [x] Add a model file and a training script and get that running
-* [x] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
-* [ ] Remember to comply with good coding practices (`pep8`) while doing the project
-* [ ] Do a bit of code typing and remember to document essential parts of your code
-* [x] Setup version control for your data or part of your data
-* [x] Construct one or multiple docker files for your code
-* [x] Build the docker files locally and make sure they work as intended
-* [x] Write one or multiple configurations files for your experiments
-* [x] Used Hydra to load the configurations and manage your hyperparameters
-* [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
+- [x] Create a git repository
+- [x] Make sure that all team members have write access to the github repository
+- [ ] Create a dedicated environment for you project to keep track of your packages
+- [x] Create the initial file structure using cookiecutter
+- [x] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
+- [x] Add a model file and a training script and get that running
+- [x] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
+- [ ] Remember to comply with good coding practices (`pep8`) while doing the project
+- [ ] Do a bit of code typing and remember to document essential parts of your code
+- [x] Setup version control for your data or part of your data
+- [x] Construct one or multiple docker files for your code
+- [x] Build the docker files locally and make sure they work as intended
+- [x] Write one or multiple configurations files for your experiments
+- [x] Used Hydra to load the configurations and manage your hyperparameters
+- [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
       you can optimize your code
-* [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
+- [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
       consider running a hyperparameter optimization sweep.
-* [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
+- [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
-* [x] Write unit tests related to the data part of your code
-* [x] Write unit tests related to model construction and or model training
-* [x] Calculate the coverage.
-* [ ] Get some continuous integration running on the github repository
-* [x] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
-* [ ] Create a trigger workflow for automatically building your docker images
-* [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [ ] Create a FastAPI application that can do inference using your model
-* [ ] If applicable, consider deploying the model locally using torchserve
-* [ ] Deploy your model in GCP using either Functions or Run as the backend
+- [x] Write unit tests related to the data part of your code
+- [x] Write unit tests related to model construction and or model training
+- [x] Calculate the coverage.
+- [ ] Get some continuous integration running on the github repository
+- [x] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
+- [ ] Create a trigger workflow for automatically building your docker images
+- [ ] Get your model training in GCP using either the Engine or Vertex AI
+- [ ] Create a FastAPI application that can do inference using your model
+- [ ] If applicable, consider deploying the model locally using torchserve
+- [ ] Deploy your model in GCP using either Functions or Run as the backend
 
 ### Week 3
 
-* [ ] Check how robust your model is towards data drifting
-* [ ] Setup monitoring for the system telemetry of your deployed model
-* [ ] Setup monitoring for the performance of your deployed model
-* [ ] If applicable, play around with distributed data loading
-* [ ] If applicable, play around with distributed model training
-* [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed
+- [ ] Check how robust your model is towards data drifting
+- [ ] Setup monitoring for the system telemetry of your deployed model
+- [ ] Setup monitoring for the performance of your deployed model
+- [ ] If applicable, play around with distributed data loading
+- [ ] If applicable, play around with distributed model training
+- [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed
 
 ### Additional
 
-* [ ] Revisit your initial project description. Did the project turn out as you wanted?
-* [ ] Make sure all group members have a understanding about all parts of the project
-* [x] Uploaded all your code to github
+- [ ] Revisit your initial project description. Did the project turn out as you wanted?
+- [ ] Make sure all group members have a understanding about all parts of the project
+- [x] Uploaded all your code to github
 
 ## Group information
 
 ### Question 1
+
 > **Enter the group number you signed up on <learn.inside.dtu.dk>**
 >
 > Answer:
@@ -108,24 +109,23 @@ end of the project.
 19
 
 ### Question 2
+
 > **Enter the study number for each member in the group**
 >
 > Example:
 >
-> *sXXXXXX, sXXXXXX, sXXXXXX*
+> _sXXXXXX, sXXXXXX, sXXXXXX_
 >
-> Answer:
-
-s213820, s184677, s144841, s230374
+> Answer: s213820, s184677, s144841, s230374
 
 ### Question 3
+
 > **What framework did you choose to work with and did it help you complete the project?**
 >
 > Answer length: 100-200 words.
 >
 > Example:
-> *We used the third-party framework ... in our project. We used functionality ... and functionality ... from the*
-> *package to do ... and ... in our project*.
+> _We used the third-party framework ... in our project. We used functionality ... and functionality ... from the_ > _package to do ... and ... in our project_.
 >
 > Answer:
 
@@ -143,14 +143,12 @@ Using the out-of-the-box model from torchvision was a great help in getting star
 
 ### Question 4
 
-> **Explain how you managed dependencies in your project? Explain the process a new team member would have to go**
-> **through to get an exact copy of your environment.**
+> **Explain how you managed dependencies in your project? Explain the process a new team member would have to go** > **through to get an exact copy of your environment.**
 >
 > Answer length: 100-200 words
 >
 > Example:
-> *We used ... for managing our dependencies. The list of dependencies was auto-generated using ... . To get a*
-> *complete copy of our development environment, one would have to run the following commands*
+> _We used ... for managing our dependencies. The list of dependencies was auto-generated using ... . To get a_ > _complete copy of our development environment, one would have to run the following commands_
 >
 > Answer:
 
@@ -160,20 +158,17 @@ Of course, the environment may change over the course of development, so it shou
 
 ### Question 5
 
-> **We expect that you initialized your project using the cookiecutter template. Explain the overall structure of your**
-> **code. Did you fill out every folder or only a subset?**
+> **We expect that you initialized your project using the cookiecutter template. Explain the overall structure of your** > **code. Did you fill out every folder or only a subset?**
 >
 > Answer length: 100-200 words
 >
 > Example:
-> *From the cookiecutter template we have filled out the ... , ... and ... folder. We have removed the ... folder*
-> *because we did not use any ... in our project. We have added an ... folder that contains ... for running our*
-> *experiments.*
+> _From the cookiecutter template we have filled out the ... , ... and ... folder. We have removed the ... folder_ > _because we did not use any ... in our project. We have added an ... folder that contains ... for running our_ > _experiments._
 > Answer:
 
 Our code is structured using the MLOps cookiecutter template. Everything that is run as part of the project is in the project folder, while everything else (data files, model files, config files) are in the root directory.
 
- We have filled out the following folders: data, dockerfiles, models, notebooks, reports, tests, and of course the project itself (animals10).
+We have filled out the following folders: data, dockerfiles, models, notebooks, reports, tests, and of course the project itself (animals10).
 
 In addition to these, we also added a config folder, which holds the YAML files for setting up experiments. We also have a cloudbuild folder, which contains the YAML file that builds the docker image for deploying the model.
 
@@ -181,8 +176,7 @@ We have not filled out the docs folder, since this is just a demo project not me
 
 ### Question 6
 
-> **Did you implement any rules for code quality and format? Additionally, explain with your own words why these**
-> **concepts matters in larger projects.**
+> **Did you implement any rules for code quality and format? Additionally, explain with your own words why these** > **concepts matters in larger projects.**
 >
 > Answer length: 50-100 words.
 >
@@ -202,8 +196,7 @@ For formatting we have used ruff linting and formatting. Additionally, we have w
 > Answer length: 50-100 words.
 >
 > Example:
-> *In total we have implemented X tests. Primarily we are testing ... and ... as these the most critical parts of our*
-> *application but also ... .*
+> _In total we have implemented X tests. Primarily we are testing ... and ... as these the most critical parts of our_ > _application but also ... ._
 >
 > Answer:
 
@@ -211,14 +204,13 @@ We focused on creating tests for the training process and the data. We designed 
 
 ### Question 8
 
-> **What is the total code coverage (in percentage) of your code? If you code had an code coverage of 100% (or close**
-> **to), would you still trust it to be error free? Explain you reasoning.**
+> **What is the total code coverage (in percentage) of your code? If you code had an code coverage of 100% (or close** > **to), would you still trust it to be error free? Explain you reasoning.**
 >
 > Answer length: 100-200 words.
 >
 > Example:
-> *The total code coverage of code is X%, which includes all our source code. We are far from 100% coverage of our **
-> *code and even if we were then...*
+> *The total code coverage of code is X%, which includes all our source code. We are far from 100% coverage of our \*\*
+> *code and even if we were then...\*
 >
 > Answer:
 
@@ -226,20 +218,18 @@ We focused on creating tests for the training process and the data. We designed 
 
 ### Question 9
 
-> **Did you workflow include using branches and pull requests? If yes, explain how. If not, explain how branches and**
-> **pull request can help improve version control.**
+> **Did you workflow include using branches and pull requests? If yes, explain how. If not, explain how branches and** > **pull request can help improve version control.**
 >
 > Answer length: 100-200 words.
 >
 > Example:
-> *We made use of both branches and PRs in our project. In our group, each member had an branch that they worked on in*
-> *addition to the main branch. To merge code we ...*
+> _We made use of both branches and PRs in our project. In our group, each member had an branch that they worked on in_ > _addition to the main branch. To merge code we ..._
 >
 > Answer:
 
 For small changes, commits directly to the main branch with a descriptive message was tolerated. However, if the code change spanned more than just a few lines, we made use of branches and PRs. This enables everyone to see which changes are in progress, and what parts of the project are being actively developed.
 
-We did not really implement a single naming convention for the branches. One naming convention is "type/subject". And so, if we were developing the training script, the branch would be "feature/trainmodel". Other types could be *bugfix, experimental, WIP*.
+We did not really implement a single naming convention for the branches. One naming convention is "type/subject". And so, if we were developing the training script, the branch would be "feature/trainmodel". Other types could be _bugfix, experimental, WIP_.
 
 Another naming convention is to use the ititials of the developer, and then the subject, e.g. "john/trainmodel". This was, everyone can easily see who is working on what.
 
@@ -249,14 +239,12 @@ PRs are used to merge temporary branches into the main branch, and are a good wa
 
 ### Question 10
 
-> **Did you use DVC for managing data in your project? If yes, then how did it improve your project to have version**
-> **control of your data. If no, explain a case where it would be beneficial to have version control of your data.**
+> **Did you use DVC for managing data in your project? If yes, then how did it improve your project to have version** > **control of your data. If no, explain a case where it would be beneficial to have version control of your data.**
 >
 > Answer length: 100-200 words.
 >
 > Example:
-> *We did make use of DVC in the following way: ... . In the end it helped us in ... for controlling ... part of our*
-> *pipeline*
+> _We did make use of DVC in the following way: ... . In the end it helped us in ... for controlling ... part of our_ > _pipeline_
 >
 > Answer:
 
@@ -266,25 +254,24 @@ It would be beneficial to be able to checkout different data versions, as part o
 
 ### Question 11
 
-> **Discuss you continues integration setup. What kind of CI are you running (unittesting, linting, etc.)? Do you test**
-> **multiple operating systems, python version etc. Do you make use of caching? Feel free to insert a link to one of**
-> **your github actions workflow.**
+> **Discuss you continues integration setup. What kind of CI are you running (unittesting, linting, etc.)? Do you test** > **multiple operating systems, python version etc. Do you make use of caching? Feel free to insert a link to one of** > **your github actions workflow.**
 >
 > Answer length: 200-300 words.
 >
 > Example:
-> *We have organized our CI into 3 separate files: one for doing ..., one for running ... testing and one for running*
-> *... . In particular for our ..., we used ... .An example of a triggered workflow can be seen here: <weblink>*
+> _We have organized our CI into 3 separate files: one for doing ..., one for running ... testing and one for running_ > _... . In particular for our ..., we used ... .An example of a triggered workflow can be seen here: <weblink>_
 >
 > Answer:
 
 We incorporated a Github action that is located in:
+
 > .github/workflows/tests.yml
 
 This action generates a report using the coverage package:
+
 > coverage run -m pytest tests/
 
-This results in a report being created that is uploaded as an artifact. 
+This results in a report being created that is uploaded as an artifact.
 
 We then use the linter ruff by checking that all the files are formatted correclty.
 
@@ -295,13 +282,12 @@ We then use the linter ruff by checking that all the files are formatted correcl
 
 ### Question 12
 
-> **How did you configure experiments? Did you make use of config files? Explain with coding examples of how you would**
-> **run a experiment.**
+> **How did you configure experiments? Did you make use of config files? Explain with coding examples of how you would** > **run a experiment.**
 >
 > Answer length: 50-100 words.
 >
 > Example:
-> *We used a simple argparser, that worked in the following way: python my_script.py --lr 1e-3 --batch_size 25*
+> _We used a simple argparser, that worked in the following way: python my_script.py --lr 1e-3 --batch_size 25_
 >
 > Answer:
 
@@ -313,14 +299,12 @@ To configure a sweep, the developer should create a sweep.yaml file in the confi
 
 ### Question 13
 
-> **Reproducibility of experiments are important. Related to the last question, how did you secure that no information**
-> **is lost when running experiments and that your experiments are reproducible?**
+> **Reproducibility of experiments are important. Related to the last question, how did you secure that no information** > **is lost when running experiments and that your experiments are reproducible?**
 >
 > Answer length: 100-200 words.
 >
 > Example:
-> *We made use of config files. Whenever an experiment is run the following happens: ... . To reproduce an experiment*
-> *one would have to do ...*
+> _We made use of config files. Whenever an experiment is run the following happens: ... . To reproduce an experiment_ > _one would have to do ..._
 >
 > Answer:
 
@@ -332,19 +316,15 @@ Furthermore, we containerize our training environment using Docker. By encapsula
 
 ### Question 14
 
-> **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
-> **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take**
-> **inspiration from [this figure](figures/wandb.png). Explain what metrics you are tracking and why they are**
-> **important.**
+> **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking** > **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take** > **inspiration from [this figure](figures/wandb.png). Explain what metrics you are tracking and why they are** > **important.**
 >
 > Answer length: 200-300 words + 1 to 3 screenshots.
 >
 > Example:
-> *As seen in the first image when have tracked ... and ... which both inform us about ... in our experiments.*
-> *As seen in the second image we are also tracking ... and ...*
+> _As seen in the first image when have tracked ... and ... which both inform us about ... in our experiments._ > _As seen in the second image we are also tracking ... and ..._
 >
 > Answer:
-In our experimentation, we monitor several metrics to gauge the performance and effectiveness of our models. Firstly, we track the training loss, which provides insights into how well our model is learning from the training data. A decreasing training loss indicates that the model is converging and effectively minimizing the difference between predicted and actual values. This metric is crucial for assessing the model's training progress and identifying potential issues, such as overfitting or underfitting.
+> In our experimentation, we monitor several metrics to gauge the performance and effectiveness of our models. Firstly, we track the training loss, which provides insights into how well our model is learning from the training data. A decreasing training loss indicates that the model is converging and effectively minimizing the difference between predicted and actual values. This metric is crucial for assessing the model's training progress and identifying potential issues, such as overfitting or underfitting.
 
 Validation accuracy is another important metric we monitor. It measures the model's performance on a separate dataset not used during training, giving an indication of its generalization capabilities. A high validation accuracy signifies that the model is good at making accurate predictions on unseen data.
 
@@ -357,21 +337,21 @@ By comprehensively tracking these metrics using the Weights and Bias framework, 
 
 ### Question 15
 
-> **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
-> **experiments? Include how you would run your docker images and include a link to one of your docker files.**
+> **Docker is an important tool for creating containerized applications. Explain how you used docker in your** > **experiments? Include how you would run your docker images and include a link to one of your docker files.**
 >
 > Answer length: 100-200 words.
 >
 > Example:
-> *For our project we developed several images: one for training, inference and deployment. For example to run the*
-> *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink>*
+> _For our project we developed several images: one for training, inference and deployment. For example to run the_ > _training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink>_
 >
 > Answer:
 
-All of our dockerfiles are stored in 
->dockerfiles/
+All of our dockerfiles are stored in
+
+> dockerfiles/
 
 We dockerized our application and training process through a yaml file that is called when the cloud trigger is activated. We first build the docker image using the cloud:
+
 ```
   - name: "gcr.io/cloud-builders/docker"
     args:
@@ -384,26 +364,26 @@ We dockerized our application and training process through a yaml file that is c
         ".",
       ]
 ```
+
 Here we define the dockerfile we want to execute, project id on the cloud and the name of the image that is built.
 
 Then we push the image to the container registry:
+
 ```
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/delta-fact-410808/animage:latest"]
 ```
-Now the image can be used by othe cloud functionality such as the Vertex AI and the Cloud Run functionality.
 
+Now the image can be used by othe cloud functionality such as the Vertex AI and the Cloud Run functionality.
 
 ### Question 16
 
-> **When running into bugs while trying to run your experiments, how did you perform debugging? Additionally, did you**
-> **try to profile your code or do you think it is already perfect?**
+> **When running into bugs while trying to run your experiments, how did you perform debugging? Additionally, did you** > **try to profile your code or do you think it is already perfect?**
 >
 > Answer length: 100-200 words.
 >
 > Example:
-> *Debugging method was dependent on group member. Some just used ... and others used ... . We did a single profiling*
-> *run of our main code at some point that showed ...*
+> _Debugging method was dependent on group member. Some just used ... and others used ... . We did a single profiling_ > _run of our main code at some point that showed ..._
 >
 > Answer:
 
@@ -422,32 +402,30 @@ While we acknowledge that our code is not flawless, we haven't implemented profi
 > Answer length: 50-200 words.
 >
 > Example:
-> *We used the following two services: Engine and Bucket. Engine is used for... and Bucket is used for...*
+> _We used the following two services: Engine and Bucket. Engine is used for... and Bucket is used for..._
 >
 > Answer:
 
-* Container Registry: Store docker images and docker containers.
+- Container Registry: Store docker images and docker containers.
 
-* Cloud Run: Deployes and hosts applications. We used it to host the backend server for our model.
+- Cloud Run: Deployes and hosts applications. We used it to host the backend server for our model.
 
-* Cloud Build: Automates the building and deployment process by connecting to repositories and executing triggers at predefined times. We used the triggers function to update the deployed model when the source code is updated.
+- Cloud Build: Automates the building and deployment process by connecting to repositories and executing triggers at predefined times. We used the triggers function to update the deployed model when the source code is updated.
 
-* Cloud Storage: Used to store repositories. We used it to store our processed data as well as trained models.
-´
-* Vertex AI: Toolbox for AI development and deployment. We used it to train our model.
+- Cloud Storage: Used to store repositories. We used it to store our processed data as well as trained models.
+  ´
+- Vertex AI: Toolbox for AI development and deployment. We used it to train our model.
 
-* Cloud Alerts: Monitors a process and alerts the user if a pre-defined condition is met.
+- Cloud Alerts: Monitors a process and alerts the user if a pre-defined condition is met.
 
 ### Question 18
 
-> **The backbone of GCP is the Compute engine. Explained how you made use of this service and what type of VMs**
-> **you used?**
+> **The backbone of GCP is the Compute engine. Explained how you made use of this service and what type of VMs** > **you used?**
 >
 > Answer length: 100-200 words.
 >
 > Example:
-> *We used the compute engine to run our ... . We used instances with the following hardware: ... and we started the*
-> *using a custom container: ...*
+> _We used the compute engine to run our ... . We used instances with the following hardware: ... and we started the_ > _using a custom container: ..._
 >
 > Answer:
 
@@ -455,19 +433,16 @@ We utilised the compute engine indirectly, through Vertex AI. We used Vertex AI 
 
 ### Question 19
 
-> **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
-> **You can take inspiration from [this figure](figures/bucket.png).**
+> **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.** > **You can take inspiration from [this figure](figures/bucket.png).**
 >
 > Answer:
 
 ![sweep](figures/buckets1.png)
 ![sweep](figures/buckets2.png)
 
-
 ### Question 20
 
-> **Upload one image of your GCP container registry, such that we can see the different images that you have stored.**
-> **You can take inspiration from [this figure](figures/registry.png).**
+> **Upload one image of your GCP container registry, such that we can see the different images that you have stored.** > **You can take inspiration from [this figure](figures/registry.png).**
 >
 > Answer:
 
@@ -475,8 +450,7 @@ We utilised the compute engine indirectly, through Vertex AI. We used Vertex AI 
 
 ### Question 21
 
-> **Upload one image of your GCP cloud build history, so we can see the history of the images that have been build in**
-> **your project. You can take inspiration from [this figure](figures/build.png).**
+> **Upload one image of your GCP cloud build history, so we can see the history of the images that have been build in** > **your project. You can take inspiration from [this figure](figures/build.png).**
 >
 > Answer:
 
@@ -484,15 +458,12 @@ We utilised the compute engine indirectly, through Vertex AI. We used Vertex AI 
 
 ### Question 22
 
-> **Did you manage to deploy your model, either in locally or cloud? If not, describe why. If yes, describe how and**
-> **preferably how you invoke your deployed service?**
+> **Did you manage to deploy your model, either in locally or cloud? If not, describe why. If yes, describe how and** > **preferably how you invoke your deployed service?**
 >
 > Answer length: 100-200 words.
 >
 > Example:
-> *For deployment we wrapped our model into application using ... . We first tried locally serving the model, which*
-> *worked. Afterwards we deployed it in the cloud, using ... . To invoke the service an user would call*
-> *`curl -X POST -F "file=@file.json"<weburl>`*
+> _For deployment we wrapped our model into application using ... . We first tried locally serving the model, which_ > _worked. Afterwards we deployed it in the cloud, using ... . To invoke the service an user would call_ > _`curl -X POST -F "file=@file.json"<weburl>`_
 >
 > Answer:
 
@@ -512,18 +483,16 @@ It is also possible to deploy the model by running the trigger manually through 
 
 ### Question 23
 
-> **Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how**
-> **monitoring would help the longevity of your application.**
+> **Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how** > **monitoring would help the longevity of your application.**
 >
 > Answer length: 100-200 words.
 >
 > Example:
-> *We did not manage to implement monitoring. We would like to have monitoring implemented such that over time we could*
-> *measure ... and ... that would inform us about this ... behaviour of our application.*
+> _We did not manage to implement monitoring. We would like to have monitoring implemented such that over time we could_ > _measure ... and ... that would inform us about this ... behaviour of our application._
 >
 > Answer:
 
-Monitoring will help the longevity of our application by providing valuable insight into how the users are actually *using* the app. There might be a great incoherence between the intended usage of the deployed model, and the actual usage. Monitoring is a way to discover this, because without it, how would we ever know what is going on in production?
+Monitoring will help the longevity of our application by providing valuable insight into how the users are actually _using_ the app. There might be a great incoherence between the intended usage of the deployed model, and the actual usage. Monitoring is a way to discover this, because without it, how would we ever know what is going on in production?
 
 Our app classifies images into 10 different categories of animals. There are obviously many more types of animals. And even more types of things in general. But that does not restrict users from uploading images of vintage cars and get respones like "cat" og "giraffe". And while it may be fun to find out if your friends car is more cat than giraffe, it may also be an indication that users actually want to classify cars moreso than animals.
 
@@ -538,17 +507,15 @@ This insight can be used to strategize and plan future development of the produc
 > Answer length: 25-100 words.
 >
 > Example:
-> *Group member 1 used ..., Group member 2 used ..., in total ... credits was spend during development. The service*
-> *costing the most was ... due to ...*
+> _Group member 1 used ..., Group member 2 used ..., in total ... credits was spend during development. The service_ > _costing the most was ... due to ..._
 >
 > Answer:
 
-* s230374 : $1.17
-* s213820 : $3.76
-* s144841 : $9.47
+- s230374 : $1.17
+- s213820 : $3.76
+- s144841 : $9.47
 
-In total we only used $14.4 for the entire project which was less than we expected to use. Most of the credits were used on the Vertex AI training process, Followed by the cloud storage. 
-
+In total we only used $14.4 for the entire project which was less than we expected to use. Most of the credits were used on the Vertex AI training process, Followed by the cloud storage.
 
 ## Overall discussion of project
 
@@ -556,40 +523,36 @@ In total we only used $14.4 for the entire project which was less than we expect
 
 ### Question 25
 
-> **Include a figure that describes the overall architecture of your system and what services that you make use of.**
-> **You can take inspiration from [this figure](figures/overview.png). Additionally in your own words, explain the**
-> **overall steps in figure.**
+> **Include a figure that describes the overall architecture of your system and what services that you make use of.** > **You can take inspiration from [this figure](figures/overview.png). Additionally in your own words, explain the** > **overall steps in figure.**
 >
 > Answer length: 200-400 words
 >
 > Example:
 >
-> *The starting point of the diagram is our local setup, where we integrated ... and ... and ... into our code.*
-> *Whenever we commit code and puch to github, it auto triggers ... and ... . From there the diagram shows ...*
+> _The starting point of the diagram is our local setup, where we integrated ... and ... and ... into our code._ > _Whenever we commit code and puch to github, it auto triggers ... and ... . From there the diagram shows ..._
 >
 > Answer:
 
-The developer interacts with github. When the developer pushes code to github, then github actions are triggered that check the format of the code and run a test script. A coverage report is then made. 
+The developer interacts with github. When the developer pushes code to github, then github actions are triggered that check the format of the code and run a test script. A coverage report is then made.
 
-If the branch that is being pushed to is the main branch, then a trigger in the cloud is also created. This trigger dockerises the training process and the application separately. Using vertex AI, the developer can then train the model and the training and validation accuracy is logged to WandB. The training data is stored in the cloud storage and the output model is also stored there in the cloud. 
+If the branch that is being pushed to is the main branch, then a trigger in the cloud is also created. This trigger dockerises the training process and the application separately. Using vertex AI, the developer can then train the model and the training and validation accuracy is logged to WandB. The training data is stored in the cloud storage and the output model is also stored there in the cloud.
 
 The trigger will also redeploy the application if it is approved. This will take the model from the cloud and deploy it using the Cloud Run functionality.
 
 The application is being monitored with the cloud alert functionality. If the cpu utilisation is over 95 percent, it sends an alert.
 
-A user can now access the deployed model given that they have access.   
+A user can now access the deployed model given that they have access.
 
 ![sweep](figures/diagram.png)
 
 ### Question 26
 
-> **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
-> **challenges?**
+> **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these** > **challenges?**
 >
 > Answer length: 200-400 words.
 >
 > Example:
-> *The biggest challenges in the project was using ... tool to do ... . The reason for this was ...*
+> _The biggest challenges in the project was using ... tool to do ... . The reason for this was ..._
 >
 > Answer:
 
@@ -601,16 +564,12 @@ Dvc was also taking up a lot of precious development time. We had issues with pu
 
 ### Question 27
 
-> **State the individual contributions of each team member. This is required information from DTU, because we need to**
-> **make sure all members contributed actively to the project**
+> **State the individual contributions of each team member. This is required information from DTU, because we need to** > **make sure all members contributed actively to the project**
 >
 > Answer length: 50-200 words.
 >
 > Example:
-> *Student sXXXXXX was in charge of developing of setting up the initial cookie cutter project and developing of the*
-> *docker containers for training our applications.*
-> *Student sXXXXXX was in charge of training our models in the cloud and deploying them afterwards.*
-> *All members contributed to code by...*
+> _Student sXXXXXX was in charge of developing of setting up the initial cookie cutter project and developing of the_ > _docker containers for training our applications._ > _Student sXXXXXX was in charge of training our models in the cloud and deploying them afterwards._ > _All members contributed to code by..._
 >
 > Answer:
 

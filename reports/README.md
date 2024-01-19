@@ -116,7 +116,9 @@ end of the project.
 >
 > _sXXXXXX, sXXXXXX, sXXXXXX_
 >
-> Answer: s213820, s184677, s144841, s230374
+> Answer:
+
+s213820, s184677, s144841, s230374
 
 ### Question 3
 
@@ -246,9 +248,7 @@ PRs are used to merge temporary branches into the main branch, and are a good wa
 >
 > Answer:
 
-We did not use Data Version Control (DVC) in our project, mainly because our dataset remained fixed and did not undergo changes throughout the experiments. However, in scenarios where data modifications are likely, DVC is very useful. For instance, if we were to acquire additional images or explore different preprocessing techniques, DVC could help with managing dataset versions.
-
-It would be beneficial to be able to checkout different data versions, as part of being able to reproduce experiments. Of course, the hyperparameters, including the random seed, used to train a model, are important for reproduceability. But the data used as input is also extremely important. If we were to test how different preprocessing techniques affect model performance, DVC could help with this.
+We did use Data Version Control (DVC) in our project. Having a seperate version control for our data files was beneficial, as they were pushed to our google cloud storage in an efficient manner. The idea and practical use of separately handling data versioning did have some drawbacks when we were building the images through Docker. For our local development environment it helped us pull our data from our remote storage to do the training and prediction locally. Any changes to the data folder that was tracked were pushed to our remote bucket in the cloud.
 
 ### Question 11
 
@@ -541,7 +541,7 @@ The application is being monitored with the cloud alert functionality. If the cp
 
 A user can now access the deployed model given that they have access.
 
-![sweep](figures/diagram.png)
+![sweep](figures/mlops-diagram_1.png)
 
 ### Question 26
 
@@ -571,12 +571,4 @@ Dvc was also taking up a lot of precious development time. We had issues with pu
 >
 > Answer:
 
-Student s213820 was in charge of setting up the dataset processing, experiment configurations and sweeps in wandb, as well as keeping the code formatted and repository tidy.
-
-Student s184677 was in charge of
-
-Student s144841 was in charge of
-
-Student s230374 was in charge of creating the training and predict method, configuring the data processing to fit the model, creating the model application and hosting it on the cloud.
-
-All members contributed to the code and development of the project.
+All members contributed to the code and development of the project. Everyone worked and helped with each part of the code and project.
